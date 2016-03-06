@@ -13,7 +13,6 @@
 //(*Headers(Productivity_RPGDialog)
 #include <wx/sizer.h>
 #include <wx/stattext.h>
-#include <wx/statline.h>
 #include <wx/button.h>
 #include <wx/dialog.h>
 //*)
@@ -30,21 +29,20 @@ class Productivity_RPGDialog: public wxDialog
         //(*Handlers(Productivity_RPGDialog)
         void OnQuit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
+        void OnInit(wxInitDialogEvent& event);
         //*)
 
         //(*Identifiers(Productivity_RPGDialog)
         static const long ID_STATICTEXT1;
         static const long ID_BUTTON1;
-        static const long ID_STATICLINE1;
-        static const long ID_BUTTON2;
+        static const long ID_STATICTEXT2;
         //*)
 
         //(*Declarations(Productivity_RPGDialog)
+        wxStaticText* StaticText2;
         wxButton* Button1;
         wxStaticText* StaticText1;
         wxBoxSizer* BoxSizer2;
-        wxButton* Button2;
-        wxStaticLine* StaticLine1;
         wxBoxSizer* BoxSizer1;
         //*)
 

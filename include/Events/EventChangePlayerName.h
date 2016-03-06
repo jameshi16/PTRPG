@@ -7,8 +7,8 @@ class EventChangePlayerName: public Event
 {
     public:
         EventChangePlayerName();
-        virtual int ExecuteEvent(); //implement the execute event
-        virtual bool canExecute(); //implement the can execute
+        virtual int ExecuteEvent(Game*); //implement the execute event
+        virtual bool canExecute(Game*); //implement the can execute
         virtual ~EventChangePlayerName();
 
     protected:

@@ -5,6 +5,7 @@
 
 #include "Event.h"
 #include "Item.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -19,7 +20,9 @@ class Game
 
         vector<Item> ItemList = {}; //This creates a vector that is able to store items
 
-        virtual ~Game();
+        Player *player; //This is the player
+
+        ~Game();
 
     protected:
 

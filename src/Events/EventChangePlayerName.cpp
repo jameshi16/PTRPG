@@ -1,17 +1,17 @@
 #include "EventChangePlayerName.h"
-#include "Player.h"
+#include "Game.h"
 
 EventChangePlayerName::EventChangePlayerName()
 {
     //ctor
 }
 
-int EventChangePlayerName::ExecuteEvent()
+int EventChangePlayerName::ExecuteEvent(Game *game)
 {
-    Player.setPlayerName("Yuki"); //Changes the name
+    game->player->setPlayerName("Yuki"); //Changes the name
 }
 
-int EventChangePlayerName::canExecute()
+bool EventChangePlayerName::canExecute(Game *game)
 {
     return true; //no required things to do
 }

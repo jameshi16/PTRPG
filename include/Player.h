@@ -9,8 +9,14 @@ class Player
 {
     public:
         Player();
+        /*sets*/
         string setPlayerName(string); //Sets the player name and returns the player name
         unsigned int setPlayerHP(unsigned int); //Sets the player health
+
+        /*gets*/
+        string getPlayerName(); //self explanatory
+        unsigned int getPlayerHP(); //self explanatory
+
         virtual ~Player();
     protected:
 
