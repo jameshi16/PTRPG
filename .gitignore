@@ -26,3 +26,10 @@
 *.exe
 *.out
 *.app
+
+# Code Blocks Project Files, wxSmith files
+*.cbp
+*.depend
+*.layout
+wxsmith/
+obj/
