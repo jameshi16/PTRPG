@@ -16,9 +16,9 @@ class Game
 
         int GameLoop(int frequencyofLoop = 10); //This will loop forever and ever, until an event that breaks it occurs (frequency of loop is in milliseconds!)
 
-        vector<Event> EventList = {}; //This creates a vector that is able to store events
+        vector<Event*> EventList = {}; //This creates a vector that is able to store events
 
-        vector<Item> ItemList = {}; //This creates a vector that is able to store items
+        vector<Item*> ItemList = {}; //This creates a vector that is able to store items
 
         Player *player; //This is the player
 

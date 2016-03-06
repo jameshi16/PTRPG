@@ -10,6 +10,8 @@
 #ifndef PRODUCTIVITY_RPGMAIN_H
 #define PRODUCTIVITY_RPGMAIN_H
 
+#include "Game.h"
+
 //(*Headers(Productivity_RPGDialog)
 #include <wx/sizer.h>
 #include <wx/stattext.h>
@@ -45,6 +47,8 @@ class Productivity_RPGDialog: public wxDialog
         wxBoxSizer* BoxSizer2;
         wxBoxSizer* BoxSizer1;
         //*)
+
+        Game game;
 
         DECLARE_EVENT_TABLE()
 };

@@ -11,7 +11,6 @@
 #include <wx/msgdlg.h>
 #include <boost/thread.hpp>
 #include "GuiLogicBridge.h"
-#include "Game.h"
 
 //(*InternalHeaders(Productivity_RPGDialog)
 #include <wx/intl.h>
@@ -96,7 +95,7 @@ void Productivity_RPGDialog::OnAbout(wxCommandEvent& event)
 void Productivity_RPGDialog::OnInit(wxInitDialogEvent& event)
 {
     using namespace boost;
-    GuiLogicBridge().HpLabel = StaticText1;
-    GuiLogicBridge().NameLabel = StaticText2;
-    thread t_1(&Game::GameLoop, this, 10); //starts the game loop
+    GuiLogicBridge::HpLabel = StaticText1;
+    GuiLogicBridge::NameLabel = StaticText2;
+    thread t_1(bind(&Game::GameLoop, game, 10)); //starts the game loop
 }

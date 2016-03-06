@@ -7,6 +7,10 @@ GuiLogicBridge::GuiLogicBridge()
     //ctor
 }
 
+//variables
+wxStaticText *GuiLogicBridge::HpLabel = 0; //I should be
+wxStaticText *GuiLogicBridge::NameLabel = 0; //zero memorying this
+
 int GuiLogicBridge::update(Game *game)
 {
     /*Gui Update Block*/

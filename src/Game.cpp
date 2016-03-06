@@ -19,9 +19,9 @@ int Game::GameLoop(int frequencyofLoop)
         /*Event processing block*/
         for (int iii = 0; iii < EventList.size(); iii++)
         {
-            if (EventList[iii].canExecute(this) == true) //Pass "this", a pointer to the game class
+            if (EventList[iii]->canExecute(this) == true) //Pass "this", a pointer to the game class
             {
-                EventList[iii].ExecuteEvent(this); //for now, no handler for the return value
+                EventList[iii]->ExecuteEvent(this); //for now, no handler for the return value
             }
         }
 
