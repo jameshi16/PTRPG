@@ -13,7 +13,7 @@ class Game
     public:
         Game();
 
-        int GameLoop(int loopPerSecond = 60); //This will loop forever and ever, until an event that breaks it occurs
+        int GameLoop(int frequencyofLoop = 10); //This will loop forever and ever, until an event that breaks it occurs (frequency of loop is in milliseconds!)
 
         vector<Event> EventList = {}; //This creates a vector that is able to store events
 

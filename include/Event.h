@@ -6,7 +6,8 @@ class Event
 {
     public:
         Event();
-        virtual int ExecuteEvent(); //Use this to execute any event, ever.
+        virtual int ExecuteEvent() = 0; //Use this to execute any event, ever.
+        virtual bool canExecute() = 0; //Use this to check if an event is ready to execute
         virtual ~Event();
     protected:
 
