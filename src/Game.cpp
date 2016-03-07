@@ -31,9 +31,11 @@ int Game::GameLoop(int frequencyofLoop)
         /*Logic processed time limit (this to prevent the CPU from working too hard)*/
         this_thread::sleep(posix_time::milliseconds(frequencyofLoop));
     }
+    delete player; //Prevent memory over leak and stuff
 }
 
 Game::~Game()
 {
     //dtor
+    //delete player; //woah, so apparently you can't destruct this pointer in a virtual destructor
 }

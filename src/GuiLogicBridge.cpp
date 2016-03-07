@@ -18,12 +18,12 @@ int GuiLogicBridge::update(Game *game)
     {
         stringstream ss;
         ss << game->player->getPlayerHP();
-        HpLabel->SetLabel(ss.str()); //updates the HP Label
+        if (HpLabel->GetLabel() != ss) {HpLabel->SetLabel(ss.str());} //updates the HP Label
     }
 
     if (NameLabel != 0)
     {
-        NameLabel->SetLabel(game->player->getPlayerName()); //updates the name label
+        if (NameLabel->GetLabel() != game->player->getPlayerName()) {NameLabel->SetLabel(game->player->getPlayerName());} //updates the name label
     }
 
     return 0; //Everything is ok

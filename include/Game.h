@@ -20,7 +20,7 @@ class Game
 
         vector<Item*> ItemList = {}; //This creates a vector that is able to store items
 
-        Player *player; //This is the player
+        Player *player = new Player(); //This is the player
 
         ~Game();
 
