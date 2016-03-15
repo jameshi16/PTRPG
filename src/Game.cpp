@@ -6,6 +6,8 @@
 
 using namespace boost;
 
+mutex gameLogicMutex; //declares a mutex
+
 Game::Game()
 {
     //ctor
@@ -19,10 +21,14 @@ int Game::GameLoop(int frequencyofLoop)
         /*Event processing block*/
         for (int iii = 0; iii < EventList.size(); iii++)
         {
+            mutex.lock(); //stops all threads from accessing data
             if (EventList[iii]->canExecute(this) == true) //Pass "this", a pointer to the game class
             {
                 EventList[iii]->ExecuteEvent(this); //for now, no handler for the return value
+                delete EventList[iii]; //deletes the pointer
+                EventList->erase(iii); //remove the pointer from the event list
             }
+            mutex.unlock(); //unlocks all the mutex
         }
 
         /*Update GUI*/
