@@ -11,6 +11,11 @@
 #include <wx/msgdlg.h>
 #include <boost/thread.hpp>
 #include "GuiLogicBridge.h"
+#include "Event.h"
+#include "Item.h"
+
+/*Events to add*/
+#include "EventChangePlayerName.h"
 
 //(*InternalHeaders(Productivity_RPGDialog)
 #include <wx/intl.h>
@@ -71,6 +76,7 @@ Productivity_RPGDialog::Productivity_RPGDialog(wxWindow* parent,wxWindowID id)
     BoxSizer1->Fit(this);
     BoxSizer1->SetSizeHints(this);
 
+    Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Productivity_RPGDialog::OnButton1Click);
     Connect(wxID_ANY,wxEVT_INIT_DIALOG,(wxObjectEventFunction)&Productivity_RPGDialog::OnInit);
     //*)
 }
@@ -98,4 +104,11 @@ void Productivity_RPGDialog::OnInit(wxInitDialogEvent& event)
     GuiLogicBridge::HpLabel = StaticText1;
     GuiLogicBridge::NameLabel = StaticText2;
     thread t_1(bind(&Game::GameLoop, game, 10)); //starts the game loop
+}
+
+void Productivity_RPGDialog::OnButton1Click(wxCommandEvent& event)
+{
+    EventChangePlayerName *e_changeName = new EventChangePlayerName(); //lol
+    game.addEvent(e_changeName); //lets do it
+    //do not need to destroy pointer
 }

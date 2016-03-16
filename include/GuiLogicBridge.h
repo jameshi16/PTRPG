@@ -12,7 +12,7 @@ class GuiLogicBridge
     public:
         GuiLogicBridge();
 
-        int updateLoop(int frequency); //frequency is in milliseconds
+        //int updateLoop(int frequency); //frequency is in milliseconds
         int update(Game*);
 
         static wxStaticText *HpLabel;

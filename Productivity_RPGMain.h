@@ -32,6 +32,7 @@ class Productivity_RPGDialog: public wxDialog
         void OnQuit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
         void OnInit(wxInitDialogEvent& event);
+        void OnButton1Click(wxCommandEvent& event);
         //*)
 
         //(*Identifiers(Productivity_RPGDialog)

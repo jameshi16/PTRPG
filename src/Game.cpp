@@ -19,7 +19,7 @@ int Game::GameLoop(int frequencyofLoop)
     while (true)
     {
         /*Event processing block*/
-        for (int iii = 0; iii < EventList.size(); iii++)
+        for (unsigned int iii = 0; iii < EventList.size(); iii++)
         {
             gameLogicMutex.lock(); //stops all threads from accessing data
             if (EventList[iii]->canExecute(this) == true) //Pass "this", a pointer to the game class
@@ -38,6 +38,7 @@ int Game::GameLoop(int frequencyofLoop)
         this_thread::sleep(posix_time::milliseconds(frequencyofLoop));
     }
     delete player; //Prevent memory over leak and stuff
+    return 0;
 }
 
 /**
