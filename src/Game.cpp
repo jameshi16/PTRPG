@@ -28,11 +28,11 @@ int Game::GameLoop(int frequencyofLoop)
                 delete EventList[iii]; //deletes the pointer
                 EventList.erase(EventList.begin() + iii); //remove the pointer from the event list
             }
-            gameLogicMutex.unlock(); //unlocks all the mutex
+            /.unlock(); //unlocks all the mutex
         }
 
         /*Update GUI*/
-        GuiLogicBridge().update(this); //updates the GUI
+        GuiLogicBridge().update(this); //updates the GUI (this is the problem)
 
         /*Logic processed time limit (this to prevent the CPU from working too hard)*/
         this_thread::sleep(posix_time::milliseconds(frequencyofLoop));
