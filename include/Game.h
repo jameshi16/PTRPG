@@ -27,8 +27,8 @@ class Game
         Item* setItem(unsigned int, Item*); //replaces an item at the position
         Item* addItem (Item*); //pushes back an item to the top of the EventList
 
-        Event* getAllEvents(); //returns a copy of the whole array of events
-        Item* getAllItems(); //returns a copy of the whole array of items
+        vector<Event*> getAllEvents(); //returns a copy of the whole array of events
+        vector<Item*> getAllItems(); //returns a copy of the whole array of items
 
         unsigned int sizeOfEvents(); //returns the size of the event array
         unsigned int sizeOfItems(); //returns the size of the item array
@@ -42,6 +42,7 @@ class Game
     private:
         vector<Event*> EventList = {}; //This creates a vector that is able to store events
         vector<Item*> ItemList = {}; //This creates a vector that is able to store items
+
 };
 
 #endif // GAME_H

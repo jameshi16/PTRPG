@@ -92,6 +92,80 @@ Event* Game::addEvent(Event* theEvent)
     gameLogicMutex.unlock(); //unlock the mutex
     return theEvent;
 }
+
+/**
+@arg position - The position to insert the item into the array
+@arg Item* - The pointer to the event to insert into the array (does not need to be deleted)
+@return Returns the pointer to the event
+*/
+Item* Game::setItem(unsigned int position, Item* theItem)
+{
+    gameLogicMutex.lock(); //locks the mutex
+    ItemList[position] = theItem; //screw checking and all, just do it
+    gameLogicMutex.unlock(); //unlocks the mutex
+    return theItem;
+}
+
+/**
+@arg Event* The pointer to the event to insert the array (do not delete)
+@return Returns the pointer to the event
+*/
+Item* Game::addItem(Item* theItem)
+{
+    gameLogicMutex.lock(); //locks the mutex
+    ItemList.push_back(theItem);
+    gameLogicMutex.unlock(); //unlock the mutex
+    return theItem;
+}
+
+/**
+@return Returns a copy of the array
+*/
+vector<Event*> Game::getAllEvents()
+{
+    vector<Event*> returnValue; //declares a new vector
+    gameLogicMutex.lock(); //locks the mutex
+    returnValue = EventList; //sets the return value to the event list
+    gameLogicMutex.unlock(); //unlocks the mutex
+    return returnValue; //returns the vector
+}
+
+/**
+@return Returns a copy of the array
+*/
+vector<Item*> Game::getAllItems()
+{
+    vector<Item*> returnValue; //declares a new vector
+    gameLogicMutex.lock(); //locks the mutex
+    returnValue = ItemList; //sets the return value to the item list
+    gameLogicMutex.unlock(); //unlocks the mutex
+    return returnValue; //returns the vector
+}
+
+/**
+@return Return the size of the array
+*/
+unsigned int Game::sizeOfEvents()
+{
+    int returnValue = 0; //declares a new variable
+    gameLogicMutex.lock(); //locks the mutex
+    returnValue = EventList.size(); //sets the return value
+    gameLogicMutex.unlock(); //unlocks the mutex
+    return returnValue; //returns the value
+}
+
+/**
+@return Return the size of the array
+*/
+unsigned int Game::sizeOfItems()
+{
+    int returnValue = 0; //declares a new variable
+    gameLogicMutex.lock(); //locks the mutex
+    returnValue = ItemList.size(); //sets the return value
+    gameLogicMutex.unlock(); //unlocks the mutex
+    return returnValue; //returns the value
+}
+
 Game::~Game()
 {
     //dtor
