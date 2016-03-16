@@ -21,14 +21,17 @@ class Game
 
         ///Kinda don't use this, use only when you need to completely replace an event
         Event* setEvent(unsigned int, Event*); //replaces the event at the position
-        Event* push_backEvent (Event*); //pushes back an event to the top of the EventList
+        Event* addEvent (Event*); //pushes back an event to the top of the EventList
 
         ///Kinda don't use this, use only when you need to completely replace an item
         Item* setItem(unsigned int, Item*); //replaces an item at the position
-        Item* push_backItem (Item*); //pushes back an item to the top of the EventList
+        Item* addItem (Item*); //pushes back an item to the top of the EventList
 
         Event* getAllEvents(); //returns a copy of the whole array of events
         Item* getAllItems(); //returns a copy of the whole array of items
+
+        unsigned int sizeOfEvents(); //returns the size of the event array
+        unsigned int sizeOfItems(); //returns the size of the item array
 
         Player *player = new Player(); //This is the player
 
