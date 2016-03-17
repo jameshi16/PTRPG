@@ -103,7 +103,7 @@ void Productivity_RPGDialog::OnInit(wxInitDialogEvent& event)
     using namespace boost;
     GuiLogicBridge::HpLabel = StaticText1;
     GuiLogicBridge::NameLabel = StaticText2;
-    thread t_1(bind(&Game::GameLoop, game, 10)); //starts the game loop
+    thread t_1(bind(&Game::GameLoop, &game, 10)); //starts the game loop
 }
 
 void Productivity_RPGDialog::OnButton1Click(wxCommandEvent& event)

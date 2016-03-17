@@ -10,11 +10,39 @@ Player::Player()
     //ctor
 }
 
-string Player::setPlayerName(string s_PlayerName){mtx.lock();return playerName = s_PlayerName;mtx.unlock();}
-unsigned int Player::setPlayerHP(unsigned int n_HP){mtx.lock();return Hp = n_HP;mtx.unlock();}
+string Player::setPlayerName(string s_PlayerName)
+{
+    mtx.lock();
+    playerName = s_PlayerName;
+    mtx.unlock();
+    return s_PlayerName;
+}
 
-string Player::getPlayerName(){mtx.lock();return playerName;mtx.unlock();}
-unsigned int Player::getPlayerHP() {mtx.lock();return Hp;mtx.unlock();}
+unsigned int Player::setPlayerHP(unsigned int n_HP)
+{
+    mtx.lock();
+    Hp = n_HP;
+    mtx.unlock();
+    return n_HP;
+}
+
+string Player::getPlayerName()
+{
+    string returnValue = "";
+    mtx.lock();
+    returnValue = playerName;
+    mtx.unlock();
+    return returnValue;
+}
+
+unsigned int Player::getPlayerHP()
+{
+    unsigned int returnValue = 0;
+    mtx.lock();
+    returnValue = Hp;
+    mtx.unlock();
+    return returnValue;
+}
 
 Player::~Player()
 {

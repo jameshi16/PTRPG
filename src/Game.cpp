@@ -18,21 +18,22 @@ int Game::GameLoop(int frequencyofLoop)
     //Begin a loop somewhere here or something
     while (true)
     {
+        gameLogicMutex.lock(); //locks the mutex
         /*Event processing block*/
         for (unsigned int iii = 0; iii < EventList.size(); iii++)
         {
-            gameLogicMutex.lock(); //stops all threads from accessing data
             if (EventList[iii]->canExecute(this) == true) //Pass "this", a pointer to the game class
             {
                 EventList[iii]->ExecuteEvent(this); //for now, no handler for the return value
                 delete EventList[iii]; //deletes the pointer
                 EventList.erase(EventList.begin() + iii); //remove the pointer from the event list
             }
-            /.unlock(); //unlocks all the mutex
         }
 
+        gameLogicMutex.unlock(); //unlocks all the mutex
+
         /*Update GUI*/
-        GuiLogicBridge().update(this); //updates the GUI (this is the problem)
+        GuiLogicBridge().update(this); //updates the GUI
 
         /*Logic processed time limit (this to prevent the CPU from working too hard)*/
         this_thread::sleep(posix_time::milliseconds(frequencyofLoop));
@@ -91,6 +92,7 @@ Event* Game::addEvent(Event* theEvent)
     gameLogicMutex.lock(); //locks the mutex
     EventList.push_back(theEvent);
     gameLogicMutex.unlock(); //unlock the mutex
+
     return theEvent;
 }
 
