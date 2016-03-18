@@ -13,9 +13,9 @@
 #include "Game.h"
 
 //(*Headers(Productivity_RPGDialog)
+#include <wx/notebook.h>
 #include <wx/sizer.h>
-#include <wx/stattext.h>
-#include <wx/button.h>
+#include <wx/richtext/richtextctrl.h>
 #include <wx/dialog.h>
 //*)
 
@@ -36,17 +36,13 @@ class Productivity_RPGDialog: public wxDialog
         //*)
 
         //(*Identifiers(Productivity_RPGDialog)
-        static const long ID_STATICTEXT1;
-        static const long ID_BUTTON1;
-        static const long ID_STATICTEXT2;
+        static const long ID_NOTEBOOK1;
+        static const long ID_RICHTEXTCTRL1;
         //*)
 
         //(*Declarations(Productivity_RPGDialog)
-        wxStaticText* StaticText2;
-        wxButton* Button1;
-        wxStaticText* StaticText1;
-        wxBoxSizer* BoxSizer2;
-        wxBoxSizer* BoxSizer1;
+        wxNotebook* Notebook1;
+        wxRichTextCtrl* RichTextCtrl1;
         //*)
 
         Game game;

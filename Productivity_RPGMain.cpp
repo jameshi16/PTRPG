@@ -49,9 +49,8 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 }
 
 //(*IdInit(Productivity_RPGDialog)
-const long Productivity_RPGDialog::ID_STATICTEXT1 = wxNewId();
-const long Productivity_RPGDialog::ID_BUTTON1 = wxNewId();
-const long Productivity_RPGDialog::ID_STATICTEXT2 = wxNewId();
+const long Productivity_RPGDialog::ID_NOTEBOOK1 = wxNewId();
+const long Productivity_RPGDialog::ID_RICHTEXTCTRL1 = wxNewId();
 //*)
 
 BEGIN_EVENT_TABLE(Productivity_RPGDialog,wxDialog)
@@ -62,21 +61,20 @@ END_EVENT_TABLE()
 Productivity_RPGDialog::Productivity_RPGDialog(wxWindow* parent,wxWindowID id)
 {
     //(*Initialize(Productivity_RPGDialog)
-    Create(parent, id, _("wxWidgets app"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("id"));
-    BoxSizer1 = new wxBoxSizer(wxHORIZONTAL);
-    BoxSizer2 = new wxBoxSizer(wxVERTICAL);
-    StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("HP"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
-    BoxSizer2->Add(StaticText1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    Button1 = new wxButton(this, ID_BUTTON1, _("Change Displayname"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
-    BoxSizer2->Add(Button1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Displayname"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT2"));
-    BoxSizer2->Add(StaticText2, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    BoxSizer1->Add(BoxSizer2, 0, wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 4);
-    SetSizer(BoxSizer1);
-    BoxSizer1->Fit(this);
-    BoxSizer1->SetSizeHints(this);
+    wxFlexGridSizer* FlexGridSizer1;
 
-    Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Productivity_RPGDialog::OnButton1Click);
+    Create(parent, id, _("wxWidgets app"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("id"));
+    FlexGridSizer1 = new wxFlexGridSizer(2, 1, 0, 0);
+    Notebook1 = new wxNotebook(this, ID_NOTEBOOK1, wxDefaultPosition, wxSize(681,328), 0, _T("ID_NOTEBOOK1"));
+    FlexGridSizer1->Add(Notebook1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    RichTextCtrl1 = new wxRichTextCtrl(this, ID_RICHTEXTCTRL1, _("Text"), wxDefaultPosition, wxSize(555,284), wxRE_MULTILINE, wxDefaultValidator, _T("ID_RICHTEXTCTRL1"));
+    wxRichTextAttr rchtxtAttr_1;
+    rchtxtAttr_1.SetBulletStyle(wxTEXT_ATTR_BULLET_STYLE_ALIGN_LEFT);
+    FlexGridSizer1->Add(RichTextCtrl1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    SetSizer(FlexGridSizer1);
+    FlexGridSizer1->Fit(this);
+    FlexGridSizer1->SetSizeHints(this);
+
     Connect(wxID_ANY,wxEVT_INIT_DIALOG,(wxObjectEventFunction)&Productivity_RPGDialog::OnInit);
     //*)
 }
@@ -101,8 +99,8 @@ void Productivity_RPGDialog::OnAbout(wxCommandEvent& event)
 void Productivity_RPGDialog::OnInit(wxInitDialogEvent& event)
 {
     using namespace boost;
-    GuiLogicBridge::HpLabel = StaticText1;
-    GuiLogicBridge::NameLabel = StaticText2;
+    //GuiLogicBridge::HpLabel = StaticText1;
+    //GuiLogicBridge::NameLabel = StaticText2;
     thread t_1(bind(&Game::GameLoop, &game, 10)); //starts the game loop
 }
 
