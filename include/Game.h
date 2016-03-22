@@ -35,6 +35,8 @@ class Game
 
         Player *player = new Player(); //This is the player
 
+        void StopGameLoop(); //I was lazy to make new variables and stuff, sorry :(
+
         ~Game();
 
     protected:
@@ -42,6 +44,8 @@ class Game
     private:
         vector<Event*> EventList = {}; //This creates a vector that is able to store events
         vector<Item*> ItemList = {}; //This creates a vector that is able to store items
+
+        bool continueGameLoop = true; //This is used to stop a gameloop if needed
 
 };
 
