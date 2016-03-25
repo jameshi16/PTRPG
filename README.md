@@ -18,8 +18,10 @@ Libraries used:
   * libboost_thread
   * libboost_timer
   * libboost_chrono
+  * libboost_filesystem
+  * libboost_log (not sure if I am going to use this)
 * Angelscript
-  * libangelscript
+  * libangelscript (with scriptstdstring and scriptbuilder)
 
 ##Is there a license for Productivity Text RPG?
 I'm probably going to assign the [GNU General Public License (GPL)](https://opensource.org/licenses/GPL-3.0) soon. For now, don't do anything stupid D:<.
