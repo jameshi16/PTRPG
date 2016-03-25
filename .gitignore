@@ -27,9 +27,10 @@
 *.out
 *.app
 
-# Code Blocks Project Files, wxSmith files
+# Code Blocks Project Files, wxSmith files, Release/Debug
 *.cbp
 *.depend
 *.layout
 wxsmith/
 obj/
+bin/
