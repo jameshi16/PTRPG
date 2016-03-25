@@ -14,6 +14,8 @@
 #include "Event.h"
 #include "Item.h"
 
+#include "ScriptManager.h"
+
 /*Events to add*/
 #include "EventChangePlayerName.h"
 
@@ -103,6 +105,14 @@ void Productivity_RPGDialog::OnInit(wxInitDialogEvent& event)
     using namespace boost;
     GuiLogicBridge::HpLabel = StaticText1;
     GuiLogicBridge::NameLabel = StaticText2;
+
+    //!!DEBUG ONLY!!//
+    {
+       ScriptManager sm;
+        sm.doScriptMagic();
+    }
+
+
     thread t_1(bind(&Game::GameLoop, &game, 10)); //starts the game loop
 }
 
