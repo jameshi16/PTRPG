@@ -19,6 +19,7 @@ Libraries used:
   * libboost_timer
   * libboost_chrono
   * libboost_filesystem
+  * libboost_date_time
 * Angelscript
   * libangelscript (with scriptstdstring and scriptbuilder)
 

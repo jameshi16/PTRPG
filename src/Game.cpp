@@ -2,6 +2,8 @@
 #include "boost\chrono.hpp"
 #include "boost\thread.hpp"
 
+#include "log.h"
+
 #include "GuiLogicBridge.h"
 
 using namespace boost;

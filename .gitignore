@@ -27,10 +27,12 @@
 *.out
 *.app
 
-# Code Blocks Project Files, wxSmith files, Release/Debug
+# Code Blocks Project Files, wxSmith files, Release/Debug, .log files, log directory
 *.cbp
 *.depend
 *.layout
+*.log
 wxsmith/
 obj/
 bin/
+log/
