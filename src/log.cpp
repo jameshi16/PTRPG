@@ -10,7 +10,9 @@ Log::Log(std::string fileName)
 */
 Log* Log::w(std::string message)
 {
+    logMutex.lock();
     logWithMessageType(message, "[WARN]");
+    logMutex.unlock();
     return this;
 }
 
@@ -19,7 +21,9 @@ Log* Log::w(std::string message)
 */
 Log* Log::e(std::string message)
 {
+    logMutex.lock();
     logWithMessageType(message, "[ERROR]");
+    logMutex.unlock();
     return this;
 }
 
@@ -28,7 +32,9 @@ Log* Log::e(std::string message)
 */
 Log* Log::n(std::string message)
 {
+    logMutex.lock();
     logWithMessageType(message, "[OK]");
+    logMutex.unlock();
     return this;
 }
 
@@ -37,7 +43,9 @@ Log* Log::n(std::string message)
 */
 Log* Log::rip(std::string message)
 {
+    logMutex.lock();
     logWithMessageType(message, "[RIP]");
+    logMutex.unlock();
     return this;
 }
 
@@ -46,9 +54,11 @@ Log* Log::rip(std::string message)
 */
 Log* Log::d(std::string message)
 {
+    logMutex.lock();
     if (DEBUGMODE == 1)
         logWithMessageType(message, "[DEBUG]");
 
+    logMutex.unlock();
     return this;
 }
 

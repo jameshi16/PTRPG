@@ -7,6 +7,7 @@
 
 #include <boost/date_time.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/thread/mutex.hpp>
 
 #define DEBUGMODE 1 //change this to 1 for debug
 
@@ -34,6 +35,8 @@ class Log
     private:
         std::ofstream *f_file = new std::ofstream();
         std::string getTime();
+
+        boost::mutex logMutex;
 
         ///Was lazy
         void logWithMessageType(std::string, std::string);
