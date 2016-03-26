@@ -44,7 +44,7 @@ class Log
 
 namespace Loggers
 {
-    static Log normalLogger(boost::filesystem::current_path().string() +"\\log" + boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time()) + ".log");
+    static Log normalLogger(boost::filesystem::current_path().string() +"\\log\\log" + boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time()) + ".log");
 };
 
 
