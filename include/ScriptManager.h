@@ -15,6 +15,8 @@ class ScriptManager
         static void MessageCallback(const asSMessageInfo*, void*); //Apparently it's good to have a MessageCallback function to check if there are errors
         static void scriptTest(); //tests if the script can contact ScriptManager, and vice-versa
 
+        void loadScripts(vector<string>);
+
         virtual ~ScriptManager();
 
     protected:

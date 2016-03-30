@@ -14,6 +14,8 @@
 #include "Event.h"
 #include "Item.h"
 
+#include "log.h"
+
 #include "ScriptManager.h"
 
 /*Events to add*/
@@ -108,7 +110,7 @@ void Productivity_RPGDialog::OnInit(wxInitDialogEvent& event)
 
     //!!DEBUG ONLY!!//
     {
-       ScriptManager sm;
+        ScriptManager sm;
         sm.doScriptMagic();
     }
 

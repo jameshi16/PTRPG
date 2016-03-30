@@ -44,7 +44,14 @@ class Log
 
 namespace Loggers
 {
-    static Log normalLogger(boost::filesystem::current_path().string() +"\\log\\log" + boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time()) + ".log");
+    static Log nL(boost::filesystem::current_path().string() +"\\log\\log" + boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time()) + ".log");
+
+    static std::string its(int n_number)
+    {
+        std::stringstream ss;
+        ss << n_number;
+        return ss.str();
+    }
 };
 
 

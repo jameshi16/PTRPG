@@ -6,6 +6,8 @@
 
 #include "boost/filesystem.hpp"
 
+#include "log.h"
+
 ScriptManager::ScriptManager()
 {
     //ctor
@@ -13,12 +15,16 @@ ScriptManager::ScriptManager()
 
 void ScriptManager::doScriptMagic()
 {
+
+    using namespace Loggers; //declare the loggers namespace
+    nL.d("doScriptMagic() called");
     /*do AngelScript's magic stuff*/
 
     //Create a script engine
     asIScriptEngine *engine = asCreateScriptEngine(); //Version number already included
 
-    int r = engine->SetMessageCallback(asFUNCTION(this->MessageCallback), 0, asCALL_CDECL); assert(r >= 0); //Get a human understandable return value (assert kills the program if the value is wrong)
+    int r = engine->SetMessageCallback(asFUNCTION(this->MessageCallback), 0, asCALL_CDECL);
+    nL.d("ScriptManger line 26 " + its(r)); //Get a human understandable return value (assert kills the program if the value is wrong)
     RegisterStdString(engine); //Register a string type for the scripts
     r = engine->RegisterGlobalFunction("void scriptTest()", asFUNCTION(scriptTest), asCALL_CDECL); assert (r >= 0); //Register functions that scripts would call
 
@@ -47,6 +53,16 @@ void ScriptManager::doScriptMagic()
 
 }
 
+void ScriptManager::loadScripts(vector<string> s_FileNames)
+{
+    Loggers.nL.n("Loading AngelScript scripts...");
+
+    for (int iii = 0; iii < s_FileNames.size(); iii++)
+    {
+        Loggers.nL.n("Processing Script: " + FileNames[iii]);
+    }
+}
+
 void ScriptManager::scriptTest()
 {
     //I'm lazy to code a way to see this now, for now, just put your debugger here
@@ -56,7 +72,10 @@ void ScriptManager::scriptTest()
 
 void ScriptManager::MessageCallback(const asSMessageInfo *msg, void *param)
 {
-    //TODO: Make a logger class and log shit down
+    Loggers.nL.e("Error while parsing. Full error: @Row: " + Loggers.its(msg->row) +
+               "and @Column: " + Loggers.its(msg->col) +
+               "at section: " + msg->section +
+               " " + msg->message); //Logs the error
 }
 
 ScriptManager::~ScriptManager()
