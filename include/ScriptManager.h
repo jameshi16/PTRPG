@@ -11,7 +11,10 @@ class ScriptManager
     public:
         ScriptManager();
 
-        void doScriptMagic();
+        void WrapGame(asIScriptEngine);
+        void WrapItem(asIScriptEngine);
+        void WrapEvent(asIScriptEngine);
+
         static void MessageCallback(const asSMessageInfo*, void*); //Apparently it's good to have a MessageCallback function to check if there are errors
         static void scriptTest(); //tests if the script can contact ScriptManager, and vice-versa
 

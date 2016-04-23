@@ -13,43 +13,23 @@ ScriptManager::ScriptManager()
     //ctor
 }
 
-void ScriptManager::doScriptMagic()
+///Loads everything in the game class (almost everything)
+void ScriptManager::WrapGame(asIScriptEngine *engine);
+
+///Loads the EventASScript
+void ScriptManager::WrapEvent(asIScriptEngine *engine)
 {
+    engine->RegisterObjectType("EventASScript_t", 0, asOBJ_REF);
+    engine->RegisterObjectBehaviour("EventASScript_t", asBEHAVE_FACTORY, "EventASScript_t @f()", asFUNCTION(EventASScript::Factory), asCALL_CDECL);
+    engine->RegisterObjectBehaviour("EventASScript_t", asBEHAVE_ADDREF, "void f()", asMETHOD(FooScripted, AddRef), asCALL_THISCALL);
+    engine->RegisterObjectBehaviour("EventASScript_t", asBEHAVE_RELEASE, "void f()", asMETHOD(FooScripted, Release), asCALL_THISCALL);
+    engine->RegisterObjectMethod("EventASScript_t", "void useItem()", asMETHOD(FooScripted, useItem), asCALL_THISCALL);
+    engine->RegisterObjectProperty("FooScripted_t", "int returnValue", asOFFSET(FooScripted, returnValue));
+}
 
-    using namespace Loggers; //declare the loggers namespace
-    nL.d("doScriptMagic() called");
-    /*do AngelScript's magic stuff*/
-
-    //Create a script engine
-    asIScriptEngine *engine = asCreateScriptEngine(); //Version number already included
-
-    int r = engine->SetMessageCallback(asFUNCTION(this->MessageCallback), 0, asCALL_CDECL);
-    nL.d("ScriptManger line 26 " + its(r)); //Get a human understandable return value (assert kills the program if the value is wrong)
-    RegisterStdString(engine); //Register a string type for the scripts
-    r = engine->RegisterGlobalFunction("void scriptTest()", asFUNCTION(scriptTest), asCALL_CDECL); assert (r >= 0); //Register functions that scripts would call
-
-    /*Script loading sorcery*/
-    //Uses a AngelScript addon because James is a lazy lolicon boy
-    CScriptBuilder builder;
-    r = builder.StartNewModule(engine, "NewModule"); //Starts a new module
-    //TODO: error handling
-    r = builder.AddSectionFromFile((boost::filesystem::current_path().string() + "\\addons\\test.as").c_str()); //Adds a section from the file (i.e. loading the damn file)
-    //TODO: error handling
-    r = builder.BuildModule(); //compiles the file
-    //TODO: MORE ERROR HANDLING YAY
-
-    /*Function identification sorcery*/
-    asIScriptModule *module = engine->GetModule("NewModule"); //@line 32's module
-    asIScriptFunction *func = module->GetFunctionByDecl("void main()"); //Just use void main() for now, we have nothing to lose
-    //TODO: error handling
-    asIScriptContext *ctx = engine->CreateContext(); //we need context to do basically everything
-    ctx->Prepare(func); //Prepares the context by adding the function
-    r = ctx->Execute(); //DO IT!
-    //TODO: error handling
-
-    /*Clean up sorcery*/
-    ctx->Release(); //releases the context, kills itself (don't have to delete this)
-    engine->ShutDownAndRelease(); //aye convenient functions do everything now for you, don't they?
+///Loads the ItemASScript
+void ScriptManager::WrapItem(asIScriptEngine *engine)
+{
 
 }
 
