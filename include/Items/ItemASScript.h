@@ -18,7 +18,7 @@ class ItemASScript : public Item
                 asIScriptContext *ctx = engine->RequestContext(); //requests the current context
 
                 //Use VM to find the same function and execute it
-                ctx->Prepare(m_obj->GetObjectType()->GetMethodByDecl("void useItem()"));
+                ctx->Prepare(m_obj->GetObjectType()->GetMethodByDecl("int useItem(Game@)"));
                 ctx->SetObject(m_obj);
                 ctx->SetArgObject(0, game);
                 ctx->Execute();

@@ -22,7 +22,7 @@ class EventASScript : public Event
                 asIScriptContext *ctx = engine->RequestContext(); //gets the context of the thingy
 
                 //GetMethodByDecl will give the virtual function of the script class, therefore when calling it, it will execute the derived method
-                ctx->Prepare(m_obj->GetObjectType()->GetMethodByDecl("void ExecuteEvent()")); //prepares the type
+                ctx->Prepare(m_obj->GetObjectType()->GetMethodByDecl("int ExecuteEvent(Game@)")); //prepares the type
                 ctx->SetObject(m_obj);
                 ctx->SetArgObject(0, game); //adds an argument
                 ctx->Execute(); //runs it
@@ -68,6 +68,23 @@ class EventASScript : public Event
             return new EventASScript(obj);
         }
 
+        /*Reference counting*/
+        void AddRef()
+        {
+            ++m_refCount;
+
+            //Increase the reference counter on the script side (just in case one accidentally destroys itself)
+            if (!m_isDead->Get())
+                m_obj->AddRef();
+        }
+        void Release()
+        {
+            //Release the script instance
+            if (!m_isDead->Get())
+                m_obj->Release(); //If the object dies, changes m_obj to 0
+
+            if (--m_refCount == 0) delete this; //Minus one. If the refcount is 0, then delete this instance of the class
+        }
     protected:
         EventASScript(asIScriptObject *obj) : m_isDead(0), m_refCount(1), m_obj(0), abilityToExecute(0)
         {
@@ -87,24 +104,8 @@ class EventASScript : public Event
 
         int m_refCount; //it either has a value or 0
 
+
     private:
-        /*Reference counting*/
-        void AddRef()
-        {
-            ++m_refCount;
-
-            //Increase the reference counter on the script side (just in case one accidentally destroys itself)
-            if (!m_isDead->Get())
-                m_obj->AddRef();
-        }
-        void Release()
-        {
-            //Release the script instance
-            if (!m_isDead->Get())
-                m_obj->Release(); //If the object dies, changes m_obj to 0
-
-            if (--m_refCount == 0) delete this; //Minus one. If the refcount is 0, then delete this instance of the class
-        }
 };
 
 #endif // EVENTASSCRIPT_H
