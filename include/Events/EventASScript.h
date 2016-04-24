@@ -2,6 +2,7 @@
 #define EVENTASSCRIPT_H
 
 #include <Event.h>
+#include <Game.h>
 
 #include <angelscript.h>
 #include <scriptbuilder/scriptbuilder.h>
@@ -30,6 +31,10 @@ class EventASScript : public Event
                 engine->ReturnContext(ctx); //gives back the context to the VM
             }
         }
+
+        ///Adds the event to the game's event list
+        void addEventToList(Game *game){ game->addEvent(this); }
+
         bool canExecute(Game* game)
         {
             //Checks if script is alive
@@ -92,6 +97,7 @@ class EventASScript : public Event
             m_isDead->AddRef(); //adds 1 to the reference (makes m_isDead usable) (true)
 
             m_obj = obj;
+            Game().currentGameInstance->addEvent(this);
         }
         ~EventASScript()
         {

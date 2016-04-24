@@ -35,6 +35,8 @@ class Game
 
         Player *player = new Player(); //This is the player
 
+        static Game *currentGameInstance; //Temporary solution for EventASScript and ItemASScript to work
+
         ~Game();
 
     protected:
@@ -44,5 +46,4 @@ class Game
         vector<Item*> ItemList = {}; //This creates a vector that is able to store items
 
 };
-
 #endif // GAME_H

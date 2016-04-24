@@ -29,6 +29,7 @@ class ItemASScript : public Item
             return returnValue;
         }
 
+        void addItemToList(Game *game){ game->addItem(this); }
 
         static ItemASScript *Factory()
         {
@@ -71,6 +72,7 @@ class ItemASScript : public Item
             m_isDead->AddRef();
 
             m_obj = obj;
+            Game().currentGameInstance->addItem(this);
         }
         ~ItemASScript()
         {

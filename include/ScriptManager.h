@@ -13,6 +13,8 @@ class ScriptManager
     public:
         ScriptManager();
 
+        static asIScriptEngine *MasterEngine;
+
         void WrapGame(asIScriptEngine *engine);
         void WrapItem(asIScriptEngine *engine);
         void WrapEvent(asIScriptEngine *engine);

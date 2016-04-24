@@ -15,8 +15,11 @@ Game::Game()
     //ctor
 }
 
+Game *Game::currentGameInstance = 0;
+
 int Game::GameLoop(int frequencyofLoop)
 {
+    currentGameInstance = this;
     //Begin a loop somewhere here or something
     while (true)
     {

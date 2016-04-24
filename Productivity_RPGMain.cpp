@@ -111,7 +111,8 @@ void Productivity_RPGDialog::OnInit(wxInitDialogEvent& event)
     //!!DEBUG ONLY!!//
     {
         ScriptManager sm;
-        sm.doScriptMagic();
+        std::vector<std::string> processFiles = {"C:\\Users\\acer\\Documents\\Programming\\Programming Projects\\Productivity RPG\\addons\\tehscript.as"};
+        sm.loadScripts(processFiles);
     }
 
 
