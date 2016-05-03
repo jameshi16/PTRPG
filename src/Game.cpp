@@ -1,30 +1,28 @@
 #include "Game.h"
-#include "boost\chrono.hpp"
-#include "boost\thread.hpp"
-
 #include "log.h"
 
 #include "GuiLogicBridge.h"
 
 using namespace boost;
 
-mutex gameLogicMutex; //declares a mutex
-
 Game::Game()
 {
     //ctor
+    if (currentGameInstance == 0)
+        currentGameInstance = this;
 }
 
 Game *Game::currentGameInstance = 0;
 
 int Game::GameLoop(int frequencyofLoop)
 {
-    currentGameInstance = this;
     //Begin a loop somewhere here or something
     while (true)
     {
         gameLogicMutex.lock(); //locks the mutex
         /*Event processing block*/
+        Loggers::nL.d("EventList size is: " + Loggers::its(EventList.size()));
+        Loggers::nL.d("ItemList size is: " + Loggers::its(EventList.size()));
         for (unsigned int iii = 0; iii < EventList.size(); iii++)
         {
             if (EventList[iii]->canExecute(this) == true) //Pass "this", a pointer to the game class

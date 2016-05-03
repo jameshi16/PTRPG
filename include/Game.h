@@ -7,7 +7,11 @@
 #include "Item.h"
 #include "Player.h"
 
+#include "boost\chrono.hpp"
+#include "boost\thread.hpp"
+
 using namespace std;
+
 
 class Game
 {
@@ -36,6 +40,7 @@ class Game
         Player *player = new Player(); //This is the player
 
         static Game *currentGameInstance; //Temporary solution for EventASScript and ItemASScript to work
+        boost::mutex gameLogicMutex; //apparently I declared a mutex that could not be accessed
 
         ~Game();
 
