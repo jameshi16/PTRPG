@@ -24,7 +24,7 @@ int Game::GameLoop(int frequencyofLoop)
         Loggers::nL.d("EventList size is: " + Loggers::its(EventList.size()));
         Loggers::nL.d("ItemList size is: " + Loggers::its(EventList.size()));
 
-        for (unsigned int iii = 1; iii < EventList.size(); iii++) //iii should technically be starting from 0, but this is to temporarily solve issue #5
+        for (unsigned int iii = 0; iii < EventList.size(); iii++) //iii should technically be starting from 0, but this is to temporarily solve issue #5
         {
             if (EventList[iii]->canExecute(this) == true) //Pass "this", a pointer to the game class
             {

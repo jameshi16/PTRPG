@@ -3,6 +3,8 @@
 
 #include <Item.h>
 #include <Game.h>
+#include <ScriptManager.h>
+
 #include <angelscript.h>
 #include <scriptbuilder/scriptbuilder.h>
 #include <scriptstdstring/scriptstdstring.h>

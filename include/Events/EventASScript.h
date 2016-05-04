@@ -4,6 +4,8 @@
 #include <Event.h>
 #include <Game.h>
 
+#include <ScriptManager.h>
+
 #include <angelscript.h>
 #include <scriptbuilder/scriptbuilder.h>
 #include <scriptstdstring/scriptstdstring.h>
@@ -73,6 +75,30 @@ class EventASScript : public Event
             return new EventASScript(obj);
         }
 
+        EventASScript *CreateThenPush()
+        {
+            //Uses universal engine
+            asIScriptEngine *engine = ScriptManager().MasterEngine;
+
+            //Erm... make a new object of the same thing? (Resource hungry af)
+            asIScriptObject *obj = reinterpret_cast<asIScriptObject*>(engine->CreateScriptObject(
+                                                                                                 m_obj->GetObjectType()));
+
+            //Create a C++ instance
+            EventASScript *theobj = *reinterpret_cast<EventASScript**>(obj->GetAddressOfProperty(0));
+
+            //Add count, control life of object
+            theobj->AddRef();
+
+            //Adds theobj to the array
+            Game().currentGameInstance->addEvent(theobj);
+
+            //Release the reference of this (This might break something)
+            obj->Release();
+
+            return theobj;
+        }
+
         /*Reference counting*/
         void AddRef()
         {
@@ -97,7 +123,8 @@ class EventASScript : public Event
             m_isDead->AddRef(); //adds 1 to the reference (makes m_isDead usable) (true)
 
             m_obj = obj;
-            Game().currentGameInstance->addEvent(this);
+            CreateThenPush();
+            //Game().currentGameInstance->addEvent(this);
         }
         ~EventASScript()
         {

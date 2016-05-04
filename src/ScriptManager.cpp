@@ -106,6 +106,7 @@ void ScriptManager::loadScripts(vector<string> s_FileNames)
         asIScriptContext *ctx = engine->CreateContext();
         ctx->Prepare(func);
         ctx->Execute();
+
     }
 }
 
