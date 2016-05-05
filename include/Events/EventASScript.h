@@ -75,14 +75,17 @@ class EventASScript : public Event
             return new EventASScript(obj);
         }
 
-        EventASScript *CreateThenPush()
+        /*EventASScript *CreateThenPush()
         {
             //Uses universal engine
-            asIScriptEngine *engine = ScriptManager().MasterEngine;
+            asIScriptEngine *engine = m_obj->GetEngine();
+
+            asITypeInfo* theType = m_obj->GetObjectType();
+
+            void* debugScript = engine->CreateScriptObject(theType);
 
             //Erm... make a new object of the same thing? (Resource hungry af)
-            asIScriptObject *obj = reinterpret_cast<asIScriptObject*>(engine->CreateScriptObject(
-                                                                                                 m_obj->GetObjectType()));
+            asIScriptObject *obj = reinterpret_cast<asIScriptObject*>(debugScript);
 
             //Create a C++ instance
             EventASScript *theobj = *reinterpret_cast<EventASScript**>(obj->GetAddressOfProperty(0));
@@ -97,7 +100,7 @@ class EventASScript : public Event
             obj->Release();
 
             return theobj;
-        }
+        }*/
 
         /*Reference counting*/
         void AddRef()
@@ -123,8 +126,12 @@ class EventASScript : public Event
             m_isDead->AddRef(); //adds 1 to the reference (makes m_isDead usable) (true)
 
             m_obj = obj;
-            CreateThenPush();
+            //CreateThenPush();
             //Game().currentGameInstance->addEvent(this);
+
+            /*Debug, trying to test something*/
+            ExecuteEvent(Game().currentGameInstance);
+
         }
         ~EventASScript()
         {

@@ -109,12 +109,9 @@ void Productivity_RPGDialog::OnInit(wxInitDialogEvent& event)
     GuiLogicBridge::NameLabel = StaticText2;
 
     //!!DEBUG ONLY!!//
-    {
-        ScriptManager sm;
-        std::vector<std::string> processFiles = {"C:\\Users\\acer\\Documents\\Programming\\Programming Projects\\Productivity RPG\\addons\\tehscript.as"};
-        sm.loadScripts(processFiles);
-    }
-
+    ScriptManager sm;
+    std::vector<std::string> processFiles = {"C:\\Users\\acer\\Documents\\Programming\\Programming Projects\\Productivity RPG\\addons\\tehscript.as"};
+    sm.loadScripts(processFiles);
 
     thread t_1(bind(&Game::GameLoop, &game, 10)); //starts the game loop
 }

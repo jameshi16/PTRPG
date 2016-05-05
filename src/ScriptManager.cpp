@@ -106,6 +106,8 @@ void ScriptManager::loadScripts(vector<string> s_FileNames)
         asIScriptContext *ctx = engine->CreateContext();
         ctx->Prepare(func);
         ctx->Execute();
+        ctx->Release();
+        //Don't really need to shut down the engine yet
 
     }
 }
