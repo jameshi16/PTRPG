@@ -130,9 +130,7 @@ class EventASScript : public Event
             m_obj = obj;
             //CreateThenPush();
 
-            this->AddRef();
-
-            Game().currentGameInstance->addEvent(this);
+            //Game().currentGameInstance->addEvent(obj2);
 
             /*Debug, trying to test something*/
             //ExecuteEvent(Game().currentGameInstance);

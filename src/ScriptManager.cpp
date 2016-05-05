@@ -102,6 +102,8 @@ void ScriptManager::loadScripts(vector<string> s_FileNames)
             Loggers::nL.e("Script " + s_FileNames[iii] + " does not have void main()");
         }
 
+        asIScriptObject *obj = reinterpret_cast<asIScriptObject*> (engine->CreateScriptObject(mod->GetType ))
+
         //creates the context
         asIScriptContext *ctx = engine->CreateContext();
         ctx->Prepare(func);
