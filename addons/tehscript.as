@@ -19,6 +19,7 @@ class MagicClass : EventASScript
 	int ExecuteEvent (Game @game)
 	{
 		game.player.setPlayerName("Superman");
+		game.player.setPlayerHP(90);
 		return 1;
 	}
 	bool canExecute(Game @game)

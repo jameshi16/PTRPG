@@ -22,7 +22,8 @@ class EventASScript : public Event
             if (!m_isDead->Get())
             {
                 asIScriptEngine *engine = m_obj->GetEngine(); //imagine the complicated link here and there
-                asIScriptContext *ctx = engine->RequestContext(); //gets the context of the thingy
+                asIScriptContext *ctx = engine->CreateContext();
+                //asIScriptContext *ctx = engine->RequestContext(); //gets the context of the thingy
 
                 //GetMethodByDecl will give the virtual function of the script class, therefore when calling it, it will execute the derived method
                 ctx->Prepare(m_obj->GetObjectType()->GetMethodByDecl("int ExecuteEvent(Game@)")); //prepares the type
@@ -43,7 +44,8 @@ class EventASScript : public Event
             if (!m_isDead->Get())
             {
                 asIScriptEngine *engine = m_obj->GetEngine(); //gets the engine
-                asIScriptContext *ctx = engine->RequestContext(); //gets the context of the engine
+                asIScriptContext *ctx = engine->CreateContext();
+                //asIScriptContext *ctx = engine->RequestContext(); //gets the context of the engine
 
                 ctx->Prepare(m_obj->GetObjectType()->GetMethodByDecl("void canExecute()"));
                 ctx->SetObject(m_obj);
@@ -127,10 +129,13 @@ class EventASScript : public Event
 
             m_obj = obj;
             //CreateThenPush();
-            //Game().currentGameInstance->addEvent(this);
+
+            this->AddRef();
+
+            Game().currentGameInstance->addEvent(this);
 
             /*Debug, trying to test something*/
-            ExecuteEvent(Game().currentGameInstance);
+            //ExecuteEvent(Game().currentGameInstance);
 
         }
         ~EventASScript()
