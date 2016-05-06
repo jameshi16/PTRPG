@@ -4,6 +4,8 @@
 #include <Event.h>
 #include <Game.h>
 
+#include <log.h>
+
 #include <ScriptManager.h>
 
 #include <angelscript.h>
@@ -22,21 +24,21 @@ class EventASScript : public Event
             if (!m_isDead->Get())
             {
                 asIScriptEngine *engine = m_obj->GetEngine(); //imagine the complicated link here and there
-                asIScriptContext *ctx = engine->CreateContext();
-                //asIScriptContext *ctx = engine->RequestContext(); //gets the context of the thingy
+                asIScriptContext *ctx = engine->RequestContext(); //gets the context of the thingy
 
                 //GetMethodByDecl will give the virtual function of the script class, therefore when calling it, it will execute the derived method
+
                 ctx->Prepare(m_obj->GetObjectType()->GetMethodByDecl("int ExecuteEvent(Game@)")); //prepares the type
                 ctx->SetObject(m_obj);
                 ctx->SetArgObject(0, game); //adds an argument
                 ctx->Execute(); //runs it
 
                 engine->ReturnContext(ctx); //gives back the context to the VM
-            }
-        }
 
-        ///Adds the event to the game's event list
-        void addEventToList(Game *game){ game->addEvent(this); }
+                return 1; //Everything went well
+            }
+            return 0; //usually it's not possible to reach here
+        }
 
         bool canExecute(Game* game)
         {
@@ -44,17 +46,18 @@ class EventASScript : public Event
             if (!m_isDead->Get())
             {
                 asIScriptEngine *engine = m_obj->GetEngine(); //gets the engine
-                asIScriptContext *ctx = engine->CreateContext();
-                //asIScriptContext *ctx = engine->RequestContext(); //gets the context of the engine
+                asIScriptContext *ctx = engine->RequestContext(); //gets the context of the engine
 
-                ctx->Prepare(m_obj->GetObjectType()->GetMethodByDecl("void canExecute()"));
+                ctx->Prepare(m_obj->GetObjectType()->GetMethodByDecl("bool canExecute(Game@)"));
                 ctx->SetObject(m_obj);
                 ctx->SetArgObject(0, game); //passes it the whole game
                 ctx->Execute(); //runs it
 
+                bool returnValue = ctx->GetReturnDWord();
+
                 engine->ReturnContext(ctx); //gives back the context to the VM
 
-                return abilityToExecute; //returns the value (0 or 1)
+                return returnValue; //returns the value (0 or 1)
             }
             return 0;
         }
@@ -77,32 +80,17 @@ class EventASScript : public Event
             return new EventASScript(obj);
         }
 
-        /*EventASScript *CreateThenPush()
+        void AddToGame()
         {
-            //Uses universal engine
-            asIScriptEngine *engine = m_obj->GetEngine();
+            asIScriptObject *obj = reinterpret_cast<asIScriptObject*>(m_obj->GetEngine()->CreateScriptObject(m_obj->GetObjectType())); //Make a new object of the same thing
+            EventASScript *theobj = *reinterpret_cast<EventASScript**>(obj->GetAddressOfProperty(0)); //Creates a C++ object based on the object of the same thing (double dereference sorcery)
 
-            asITypeInfo* theType = m_obj->GetObjectType();
+            theobj->AddRef(); //Brings the C++ object to life
 
-            void* debugScript = engine->CreateScriptObject(theType);
+            Game().currentGameInstance->addEvent(theobj); //Adds object to array
 
-            //Erm... make a new object of the same thing? (Resource hungry af)
-            asIScriptObject *obj = reinterpret_cast<asIScriptObject*>(debugScript);
-
-            //Create a C++ instance
-            EventASScript *theobj = *reinterpret_cast<EventASScript**>(obj->GetAddressOfProperty(0));
-
-            //Add count, control life of object
-            theobj->AddRef();
-
-            //Adds theobj to the array
-            Game().currentGameInstance->addEvent(theobj);
-
-            //Release the reference of this (This might break something)
-            obj->Release();
-
-            return theobj;
-        }*/
+            obj->Release(); //Kills the object we created to create the C++ object
+        }
 
         /*Reference counting*/
         void AddRef()
@@ -129,7 +117,6 @@ class EventASScript : public Event
 
             m_obj = obj;
             //CreateThenPush();
-
             //Game().currentGameInstance->addEvent(obj2);
 
             /*Debug, trying to test something*/

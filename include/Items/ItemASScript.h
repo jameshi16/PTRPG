@@ -26,12 +26,23 @@ class ItemASScript : public Item
                 ctx->Execute();
 
                 engine->ReturnContext(ctx);
+                return 1; //perfect execution
             }
 
-            return returnValue;
+            return 0;
         }
 
-        void addItemToList(Game *game){ game->addItem(this); }
+        void AddToGame()
+        {
+            asIScriptObject *obj = reinterpret_cast<asIScriptObject*>(m_obj->GetEngine()->CreateScriptObject(m_obj->GetObjectType())); //Creates a new item object
+            ItemASScript *theobj = *reinterpret_cast<ItemASScript**>(obj->GetAddressOfProperty(0)); //Gets the address of property, then somehow make it go through 2 dereferences, and then dereference that shit again
+
+            theobj->AddRef(); //Makes the object come to life again
+
+            Game().currentGameInstance->addItem(theobj); //Adds the item to the game
+
+            obj->Release(); //destroys object used to create the Item
+        }
 
         static ItemASScript *Factory()
         {
@@ -67,14 +78,13 @@ class ItemASScript : public Item
         }
 
     protected:
-        ItemASScript(asIScriptObject *obj) : m_isDead(0), m_obj(0), m_refCount(1), returnValue(-1)
+        ItemASScript(asIScriptObject *obj) : m_isDead(0), m_obj(0), m_refCount(1)
         {
             //Sets the m_isDead
             m_isDead = obj->GetWeakRefFlag();
             m_isDead->AddRef();
 
             m_obj = obj;
-            Game().currentGameInstance->addItem(this);
         }
         ~ItemASScript()
         {
@@ -87,7 +97,6 @@ class ItemASScript : public Item
         asIScriptObject *m_obj; //the script object
 
     private:
-       int returnValue; //the script's return value
 };
 
 #endif // ITEMASSCRIPT_H

@@ -57,7 +57,7 @@ void ScriptManager::WrapEvent(asIScriptEngine *engine)
     engine->RegisterObjectBehaviour("EventASScript_t", asBEHAVE_RELEASE, "void f()", asMETHOD(EventASScript, Release), asCALL_THISCALL);
     engine->RegisterObjectMethod("EventASScript_t", "int ExecuteEvent(Game@)", asMETHODPR(EventASScript, ExecuteEvent, (Game*), int), asCALL_THISCALL);
     engine->RegisterObjectMethod("EventASScript_t", "bool canExecute(Game@)", asMETHODPR(EventASScript, canExecute, (Game*), bool), asCALL_THISCALL);
-    engine->RegisterObjectMethod("EventASScript_t", "void addEventToList(Game@)", asMETHODPR(EventASScript, addEventToList, (Game*), void), asCALL_THISCALL);
+    engine->RegisterObjectMethod("EventASScript_t", "void AddToGame()", asMETHOD(EventASScript, AddToGame), asCALL_THISCALL);
 }
 
 ///Loads the ItemASScript
@@ -68,7 +68,7 @@ void ScriptManager::WrapItem(asIScriptEngine *engine)
     engine->RegisterObjectBehaviour("ItemASScript_t", asBEHAVE_ADDREF, "void f()", asMETHOD(ItemASScript, AddRef), asCALL_THISCALL);
     engine->RegisterObjectBehaviour("ItemASScript_t", asBEHAVE_RELEASE, "void f()", asMETHOD(ItemASScript, Release), asCALL_THISCALL);
     engine->RegisterObjectMethod("ItemASScript_t", "int useItem(Game@)", asMETHODPR(ItemASScript, useItem, (Game*), int), asCALL_THISCALL);
-    engine->RegisterObjectMethod("ItemASScript_t", "void addItemToList(Game@)", asMETHODPR(ItemASScript, addItemToList, (Game*), void), asCALL_THISCALL);
+    engine->RegisterObjectMethod("ItemASScript_t", "void AddToGame()", asMETHOD(ItemASScript, AddToGame), asCALL_THISCALL);
 }
 
 /**Only call once ever**/
@@ -102,12 +102,11 @@ void ScriptManager::loadScripts(vector<string> s_FileNames)
             Loggers::nL.e("Script " + s_FileNames[iii] + " does not have void main()");
         }
 
-        asIScriptObject *obj = reinterpret_cast<asIScriptObject*> (engine->CreateScriptObject(mod->GetType ))
-
         //creates the context
         asIScriptContext *ctx = engine->CreateContext();
         ctx->Prepare(func);
         ctx->Execute();
+        ctx->Release();
         //Don't really need to shut down the engine yet
 
     }
