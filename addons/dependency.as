@@ -16,26 +16,23 @@ shared abstract class EventASScript
 	private EventASScript_t @m_obj;
 }
 
-class MagicClass : EventASScript
+shared abstract class ItemASScript
 {
-	int ExecuteEvent (Game @game)
+	ItemASScript()
 	{
-		game.player.setPlayerName("Superman");
-		game.player.setPlayerHP(90);
-		return 1;
+		//Creates the C++ side of the proxy
+		@m_obj = ItemASScript_t();
 	}
-	bool canExecute(Game @game)
-	{
-		if (game.player.getPlayerName() == "Yuki")
-		{
-			return true;
-		}
-		return false;
-	}
+	
+	int useItem(Game @game) {m_obj.useItem(game); return 1;}
+	
+	void AddToGame() {m_obj.AddToGame();}
+	
+	ItemASScript_t @opImplCast() { return m_obj; }
+	
+	private ItemASScript_t @m_obj;
 }
 
 void main()
 {
-	MagicClass mc;
-	mc.AddToGame();
 }

@@ -24,6 +24,8 @@ class ScriptManager
 
         void loadScripts(std::vector<std::string>);
 
+        std::vector<std::string> aquireAllFiles();
+
         virtual ~ScriptManager();
 
     protected:

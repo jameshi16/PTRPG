@@ -96,7 +96,8 @@ void ScriptManager::loadScripts(vector<string> s_FileNames)
         builder.BuildModule(); //builds the module
 
         asIScriptModule *mod = engine->GetModule((s_FileNames[iii] + "module").c_str()); //gets the module
-        asIScriptFunction *func = mod->GetFunctionByDecl("void main()"); //runs main (the scripts will have to register it's classes on its own)
+        //asIScriptFunction *func = mod->GetFunctionByDecl("void main()"); //runs main (the scripts will have to register it's classes on its own)
+        asIScriptFunction *func = mod->GetFunctionByIndex(0); //runs main (the scripts will have to register it's classes on its own)
         if (func == 0)
         {
             Loggers::nL.e("Script " + s_FileNames[iii] + " does not have void main()");
@@ -117,6 +118,36 @@ void ScriptManager::scriptTest()
     //I'm lazy to code a way to see this now, for now, just put your debugger here
     int done = 1;
     done = done;
+}
+
+std::vector<std::string> ScriptManager::aquireAllFiles()
+{
+    boost::filesystem::path addonsPath(boost::filesystem::current_path().string() + "\\addons\\");
+    std::vector<std::string> returnValue = {};
+
+    //Pushes in the dependency.as (also, will not run without dependency.as)
+    if (!boost::filesystem::exists(boost::filesystem::path(addonsPath.string() + "dependency.as")))
+    {
+        Loggers::nL.w("dependency.as is not detected in addons folder. Not loading addons.");
+        return returnValue;
+    }
+    returnValue.push_back(addonsPath.string() + "dependency.as"); //Must push this one back first, it's important and stuff
+
+    boost::filesystem::directory_iterator end_itr; //Just need an end itr
+
+    for (boost::filesystem::directory_iterator dir_iter(addonsPath); dir_iter != end_itr; ++dir_iter)
+    {
+        if (boost::filesystem::is_regular_file(dir_iter->path()))
+        {
+            if (dir_iter->path() != returnValue[0]) //returnValue[0] is dependency.as
+            {
+                returnValue.push_back(dir_iter->path().string());
+            }
+        }
+    }
+
+    return returnValue; //done :)
+
 }
 
 void ScriptManager::MessageCallback(const asSMessageInfo *msg, void *param)
