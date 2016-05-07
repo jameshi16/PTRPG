@@ -7,7 +7,11 @@
 #include "Item.h"
 #include "Player.h"
 
+#include "boost\chrono.hpp"
+#include "boost\thread.hpp"
+
 using namespace std;
+
 
 class Game
 {
@@ -35,7 +39,8 @@ class Game
 
         Player *player = new Player(); //This is the player
 
-        void StopGameLoop(); //I was lazy to make new variables and stuff, sorry :(
+        static Game *currentGameInstance; //Temporary solution for EventASScript and ItemASScript to work
+        boost::mutex gameLogicMutex; //apparently I declared a mutex that could not be accessed
 
         ~Game();
 
@@ -48,5 +53,4 @@ class Game
         bool continueGameLoop = true; //This is used to stop a gameloop if needed
 
 };
-
 #endif // GAME_H

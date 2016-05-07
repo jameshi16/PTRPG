@@ -1,17 +1,18 @@
 #include "Game.h"
-#include "boost\chrono.hpp"
-#include "boost\thread.hpp"
+#include "log.h"
 
 #include "GuiLogicBridge.h"
 
 using namespace boost;
 
-mutex gameLogicMutex; //declares a mutex
-
 Game::Game()
 {
     //ctor
+    if (currentGameInstance == 0)
+        currentGameInstance = this;
 }
+
+Game *Game::currentGameInstance = 0;
 
 int Game::GameLoop(int frequencyofLoop)
 {
@@ -20,7 +21,8 @@ int Game::GameLoop(int frequencyofLoop)
     {
         gameLogicMutex.lock(); //locks the mutex
         /*Event processing block*/
-        for (unsigned int iii = 0; iii < EventList.size(); iii++)
+
+        for (unsigned int iii = 0; iii < EventList.size(); iii++) //iii should technically be starting from 0, but this is to temporarily solve issue #5
         {
             if (EventList[iii]->canExecute(this) == true) //Pass "this", a pointer to the game class
             {
