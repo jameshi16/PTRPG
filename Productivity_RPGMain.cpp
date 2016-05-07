@@ -147,6 +147,6 @@ void Productivity_RPGDialog::OnInit(wxInitDialogEvent& event)
 
 void Productivity_RPGDialog::OnClose(wxCloseEvent& event)
 {
-    game.StopGameLoop(); //stops the game loop
+    game.continueGameLoop = false;
     Close();
 }

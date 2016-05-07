@@ -44,12 +44,6 @@ int Game::GameLoop(int frequencyofLoop)
     return 0;
 }
 
-void Game::StopGameLoop()
-{
-    continueGameLoop = false; //It's time to stop
-    return;
-}
-
 /**
 @arg position - The position of the item in the array
 @return Returns the pointer to the event (the pointer is 0 if event does not exist)
