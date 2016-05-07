@@ -45,6 +45,16 @@ int Game::GameLoop(int frequencyofLoop)
 }
 
 /**
+Safely stops the gameLoop()
+*/
+void Game::StopGameLoop()
+{
+    gameLogicMutex.lock();
+    continueGameLoop = false;
+    gameLogicMutex.unlock();
+}
+
+/**
 @arg position - The position of the item in the array
 @return Returns the pointer to the event (the pointer is 0 if event does not exist)
 */

@@ -138,15 +138,21 @@ void Productivity_RPGDialog::OnInit(wxInitDialogEvent& event)
     GuiLogicBridge::HpLabel = hpLabel;
     GuiLogicBridge::NameLabel = playerNameLabel;
 
-    //!!DEBUG ONLY!!//
+    //Need a proper loader for this//
     ScriptManager sm;
     sm.loadScripts(sm.aquireAllFiles());
 
-    thread t_1(bind(&Game::GameLoop, &game, 10)); //starts the game loop
+    thread *t_1 = new thread(bind(&Game::GameLoop, &game, 10)); //starts the game loop
+    theGameThread = t_1; //sets the thread
 }
 
 void Productivity_RPGDialog::OnClose(wxCloseEvent& event)
 {
-    game.continueGameLoop = false;
+    game.StopGameLoop();
+    if (theGameThread->joinable())
+        theGameThread->join();
+
+    delete theGameThread;
+
     Close();
 }

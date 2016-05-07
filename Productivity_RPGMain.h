@@ -10,6 +10,8 @@
 #ifndef PRODUCTIVITY_RPGMAIN_H
 #define PRODUCTIVITY_RPGMAIN_H
 
+#include <boost/thread.hpp>
+
 #include "Game.h"
 
 //(*Headers(Productivity_RPGDialog)
@@ -72,6 +74,8 @@ class Productivity_RPGDialog: public wxDialog
         //*)
 
         Game game;
+
+        boost::thread *theGameThread;
 
         DECLARE_EVENT_TABLE()
 };

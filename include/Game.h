@@ -42,7 +42,7 @@ class Game
         static Game *currentGameInstance; //Temporary solution for EventASScript and ItemASScript to work
         boost::mutex gameLogicMutex; //apparently I declared a mutex that could not be accessed
 
-        bool continueGameLoop = true; //This is used to stop a gameloop if needed
+        void StopGameLoop(); //Stops the gameloop
 
         ~Game();
 
@@ -51,7 +51,7 @@ class Game
     private:
         vector<Event*> EventList = {}; //This creates a vector that is able to store events
         vector<Item*> ItemList = {}; //This creates a vector that is able to store items
-
+        bool continueGameLoop = true; //This is used to stop a gameloop if needed
 
 };
 #endif // GAME_H
