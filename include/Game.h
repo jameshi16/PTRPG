@@ -50,5 +50,7 @@ class Game
         vector<Event*> EventList = {}; //This creates a vector that is able to store events
         vector<Item*> ItemList = {}; //This creates a vector that is able to store items
 
+        bool continueGameLoop = true; //This is used to stop a gameloop if needed
+
 };
 #endif // GAME_H

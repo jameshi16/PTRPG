@@ -13,9 +13,12 @@
 #include "Game.h"
 
 //(*Headers(Productivity_RPGDialog)
+#include <wx/notebook.h>
 #include <wx/sizer.h>
 #include <wx/stattext.h>
-#include <wx/button.h>
+#include <wx/panel.h>
+#include <wx/richtext/richtextctrl.h>
+#include <wx/statbmp.h>
 #include <wx/dialog.h>
 //*)
 
@@ -33,20 +36,39 @@ class Productivity_RPGDialog: public wxDialog
         void OnAbout(wxCommandEvent& event);
         void OnInit(wxInitDialogEvent& event);
         void OnButton1Click(wxCommandEvent& event);
+        void OnClose(wxCloseEvent& event);
         //*)
 
         //(*Identifiers(Productivity_RPGDialog)
-        static const long ID_STATICTEXT1;
-        static const long ID_BUTTON1;
+        static const long ID_STATICBITMAP1;
         static const long ID_STATICTEXT2;
+        static const long ID_STATICTEXT4;
+        static const long ID_STATICTEXT3;
+        static const long ID_STATICTEXT6;
+        static const long ID_STATICTEXT5;
+        static const long ID_STATICTEXT7;
+        static const long ID_PANEL2;
+        static const long ID_STATICTEXT8;
+        static const long ID_PANEL1;
+        static const long ID_NOTEBOOK1;
+        static const long ID_STATICTEXT1;
+        static const long ID_RICHTEXTCTRL1;
         //*)
 
         //(*Declarations(Productivity_RPGDialog)
+        wxNotebook* Notebook1;
         wxStaticText* StaticText2;
-        wxButton* Button1;
+        wxRichTextCtrl* RichTextCtrl1;
+        wxStaticText* StaticText6;
+        wxPanel* Panel1;
         wxStaticText* StaticText1;
-        wxBoxSizer* BoxSizer2;
-        wxBoxSizer* BoxSizer1;
+        wxStaticBitmap* playerImage;
+        wxStaticText* StaticText5;
+        wxStaticText* playerNameLabel;
+        wxStaticText* hpLabel;
+        wxPanel* Panel2;
+        wxStaticText* StaticText4;
+        wxStaticText* ConstText1;
         //*)
 
         Game game;

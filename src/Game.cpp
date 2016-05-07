@@ -17,7 +17,7 @@ Game *Game::currentGameInstance = 0;
 int Game::GameLoop(int frequencyofLoop)
 {
     //Begin a loop somewhere here or something
-    while (true)
+    while (continueGameLoop)
     {
         gameLogicMutex.lock(); //locks the mutex
         /*Event processing block*/
@@ -42,6 +42,12 @@ int Game::GameLoop(int frequencyofLoop)
     }
     delete player; //Prevent memory over leak and stuff
     return 0;
+}
+
+void Game::StopGameLoop()
+{
+    continueGameLoop = false; //It's time to stop
+    return;
 }
 
 /**
