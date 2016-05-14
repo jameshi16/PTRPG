@@ -6,13 +6,12 @@ This is inspired by https://habitica.com, done in C++, with code that sucks.
 On an upside, it's completely open-source, so if you find any bugs you wanna squash, [do it](https://github.com/jameshi16/Productivity-TextRPG/issues)!
 
 ##How do I compile Productivity Text RPG?
-Use a C++ compiler. For this project, I'm using GNU GCC 4.8.1-4 compiler, but you can probably use any other C++ compilers.
+Use a C++ compiler. For this project, I'm using GNU GCC 5.3.0 compiler targeted for i868 and x86_64, but you can probably use any other C++ compilers.
 Libraries used:
-* wxWidgets (and it's -d variants)
+* wxWidgets 3.1.0
   * libwxmsw30u_core
   * libwxbase30u
   * libwxpng
-  * libwxzlib
 * Boost (and it's -d variants)
   * libboost_system
   * libboost_thread
