@@ -83,6 +83,20 @@ Item* Game::getItem(unsigned int position)
 }
 
 /**
+@arg position - The position of the skill in the array
+@return Returns the pointer to the skill (the pointer is 0 if skill does not exist)
+*/
+Skill* Game::getSkill(unsigned int position)
+{
+    Skill* returnValue = 0;
+    gameLogicMutex.lock(); //locks the mutex
+    if (!(position > SkillList.size()))
+        return returnValue = SkillList[position]; //sets a returnValue to the pointer
+    gameLogicMutex.unlock(); //unlocks the mutex
+    return returnValue;
+}
+
+/**
 @arg position - The position to insert the item into the array
 @arg Event* - The pointer to the event to insert into the array (does not need to be deleted)
 @return Returns the pointer to the event
@@ -110,8 +124,8 @@ Event* Game::addEvent(Event* theEvent)
 
 /**
 @arg position - The position to insert the item into the array
-@arg Item* - The pointer to the event to insert into the array (does not need to be deleted)
-@return Returns the pointer to the event
+@arg Item* - The pointer to the item to insert into the array (does not need to be deleted)
+@return Returns the pointer to the item
 */
 Item* Game::setItem(unsigned int position, Item* theItem)
 {
@@ -122,8 +136,8 @@ Item* Game::setItem(unsigned int position, Item* theItem)
 }
 
 /**
-@arg Event* The pointer to the event to insert the array (do not delete)
-@return Returns the pointer to the event
+@arg Item* The pointer to the item to insert the array (do not delete)
+@return Returns the pointer to the item
 */
 Item* Game::addItem(Item* theItem)
 {
@@ -131,6 +145,31 @@ Item* Game::addItem(Item* theItem)
     ItemList.push_back(theItem);
     gameLogicMutex.unlock(); //unlock the mutex
     return theItem;
+}
+
+/**
+@arg position - The position to insert the item into the array
+@arg Skill* - The pointer to the skill to insert into the array (does not need to be deleted)
+@return Returns the pointer to the event
+*/
+Skill* Game::setSkill(unsigned int position, Skill* theSkill)
+{
+    gameLogicMutex.lock(); //locks the mutex
+    SkillList[position] = theSkill; //screw checking and all, just do it
+    gameLogicMutex.unlock(); //unlocks the mutex
+    return theSkill;
+}
+
+/**
+@arg Skill* The pointer to the skill to insert the array (do not delete)
+@return Returns the pointer to the event
+*/
+Skill* Game::addSkill(Skill* theSkill)
+{
+    gameLogicMutex.lock(); //locks the mutex
+    SkillList.push_back(theSkill);
+    gameLogicMutex.unlock(); //unlock the mutex
+    return theSkill;
 }
 
 /**
@@ -158,6 +197,18 @@ vector<Item*> Game::getAllItems()
 }
 
 /**
+@return Returns a copy of the array
+*/
+vector<Skill*> Game::getAllSkills()
+{
+    vector<Skill*> returnValue; //declares a new vector
+    gameLogicMutex.lock(); //locks the mutex
+    returnValue = SkillList; //sets the return value to the skill list
+    gameLogicMutex.unlock(); //unlocks the mutex
+    return returnValue;
+}
+
+/**
 @return Return the size of the array
 */
 unsigned int Game::sizeOfEvents()
@@ -179,6 +230,18 @@ unsigned int Game::sizeOfItems()
     returnValue = ItemList.size(); //sets the return value
     gameLogicMutex.unlock(); //unlocks the mutex
     return returnValue; //returns the value
+}
+
+/**
+@return Returns the size of the array
+*/
+unsigned int Game::sizeOfSkills()
+{
+    int returnValue = 0; //declares a new variable
+    gameLogicMutex.lock(); //locks the mutex
+    returnValue = SkillList.size(); //sets the return value
+    gameLogicMutex.unlock(); //unlocks the mutex
+    return returnValue;
 }
 
 Game::~Game()

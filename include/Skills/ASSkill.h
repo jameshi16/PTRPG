@@ -51,7 +51,7 @@ class ASSkill : public Skill
 
             theobj->AddRef(); //Makes both sides alive
 
-            //Insert code to add Game @ this line
+            Game().currentGameInstance->addSkill(theobj); //adds it to the game
 
             obj->Release(); //Releases this, as it is just a lesser copy of theobj
         }

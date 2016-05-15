@@ -7,9 +7,7 @@ class Skill
 {
     public:
         Skill();
-
-        virtual void useSkill(Game*);
-
+        virtual void useSkill(Game*) = 0;
         virtual ~Skill();
 
     protected:

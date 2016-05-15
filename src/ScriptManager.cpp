@@ -8,9 +8,11 @@
 #include <Game.h>
 #include <Event.h>
 #include <Item.h>
+#include <Skill.h>
 #include <Player.h>
 #include <EventASScript.h>
 #include <ItemASScript.h>
+#include <ASSkill.h>
 
 #include "boost/filesystem.hpp"
 
@@ -29,14 +31,18 @@ void ScriptManager::WrapGame(asIScriptEngine *engine)
     engine->RegisterObjectType("Game", 0, asOBJ_REF | asOBJ_NOCOUNT); //Registers Game as an object useable by the script
     engine->RegisterObjectType("Event", 0, asOBJ_REF | asOBJ_NOCOUNT); //Registers Event as an object
     engine->RegisterObjectType("Item", 0, asOBJ_REF | asOBJ_NOCOUNT); //Registers Item as an object
+    engine->RegisterObjectType("Skill", 0, asOBJ_REF | asOBJ_NOCOUNT); //Registers Skill as an object
     engine->RegisterObjectType("Player", 0, asOBJ_REF | asOBJ_NOCOUNT); //Registers Game as an object
 
     engine->RegisterObjectMethod("Game", "Event@ getEvent(int)", asMETHODPR(Game, getEvent, (unsigned int), Event*), asCALL_THISCALL); //registers get event
     engine->RegisterObjectMethod("Game", "Item@ getItem(int)", asMETHODPR(Game, getItem, (unsigned int), Item*), asCALL_THISCALL); //registers get item
+    engine->RegisterObjectMethod("Game", "Skill@ getSkill(int)", asMETHODPR(Game, getSkill, (unsigned int), Skill*), asCALL_THISCALL); //registers get skill
     engine->RegisterObjectMethod("Game", "Event@ setEvent(int, Event@)", asMETHODPR(Game, setEvent, (unsigned int, Event*), Event*), asCALL_THISCALL); //registers set item
     engine->RegisterObjectMethod("Game", "Event@ addEvent(Event@)", asMETHODPR(Game, addEvent, (Event*), Event*), asCALL_THISCALL); //registers add event
     engine->RegisterObjectMethod("Game", "Item@ setItem(int, Item@)", asMETHODPR(Game, setItem, (unsigned int, Item*), Item*), asCALL_THISCALL); //register set item
     engine->RegisterObjectMethod("Game", "Item@ addItem(Item@)", asMETHODPR(Game, addItem, (Item*), Item*), asCALL_THISCALL); //registers add item
+    engine->RegisterObjectMethod("Game", "Skill@ setSkill(int, Skill@)", asMETHODPR(Game, setSkill, (unsigned int, Skill*), Skill*), asCALL_THISCALL); //registers set skill
+    engine->RegisterObjectMethod("Game", "Skill@ addSkill(Skill@)", asMETHODPR(Game, addSkill, (Skill*), Skill*), asCALL_THISCALL); //registers add skill
 
     //TODO: implement getAllEvent() and getAllItems() [not happening soon]
 
@@ -71,6 +77,16 @@ void ScriptManager::WrapItem(asIScriptEngine *engine)
     engine->RegisterObjectMethod("ItemASScript_t", "void AddToGame()", asMETHOD(ItemASScript, AddToGame), asCALL_THISCALL);
 }
 
+void ScriptManager::WrapSkill(asIScriptEngine *engine)
+{
+    engine->RegisterObjectType("ASSkill_t", 0, asOBJ_REF);
+    engine->RegisterObjectBehaviour("ASSkill_t", asBEHAVE_FACTORY, "ASSkill_t @f()", asFUNCTION(ASSkill::Factory), asCALL_CDECL);
+    engine->RegisterObjectBehaviour("ASSkill_t", asBEHAVE_ADDREF, "void f()", asMETHOD(ASSkill, AddRef), asCALL_THISCALL);
+    engine->RegisterObjectBehaviour("ASSkill_t", asBEHAVE_RELEASE, "void f()", asMETHOD(ASSkill, Release), asCALL_THISCALL);
+    engine->RegisterObjectMethod("ASSkill_t", "void useSkill(Game@)", asMETHODPR(ASSkill, useSkill, (Game*), void), asCALL_THISCALL);
+    engine->RegisterObjectMethod("ASSkill_t", "void AddToGame()", asMETHOD(ASSkill, AddToGame), asCALL_THISCALL);
+}
+
 /**Only call once ever**/
 void ScriptManager::loadScripts(vector<string> s_FileNames)
 {
@@ -85,6 +101,7 @@ void ScriptManager::loadScripts(vector<string> s_FileNames)
     WrapGame(engine);
     WrapEvent(engine);
     WrapItem(engine);
+    WrapSkill(engine);
     /*done lol*/
 
     for (int iii = 0; iii < s_FileNames.size(); iii++)

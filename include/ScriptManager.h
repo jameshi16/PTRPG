@@ -18,6 +18,7 @@ class ScriptManager
         void WrapGame(asIScriptEngine *engine);
         void WrapItem(asIScriptEngine *engine);
         void WrapEvent(asIScriptEngine *engine);
+        void WrapSkill(asIScriptEngine *engine);
 
         static void MessageCallback(const asSMessageInfo*, void*); //Apparently it's good to have a MessageCallback function to check if there are errors
         static void scriptTest(); //tests if the script can contact ScriptManager, and vice-versa
