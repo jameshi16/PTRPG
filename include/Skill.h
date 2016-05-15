@@ -1,13 +1,14 @@
 #ifndef SKILL_H
 #define SKILL_H
 
+class Game; //Forward declaration
 
 class Skill
 {
     public:
         Skill();
 
-       // virtual useSkill(Game*);
+        virtual void useSkill(Game*);
 
         virtual ~Skill();
 
