@@ -26,9 +26,12 @@ Libraries used:
 I'm probably going to assign the [GNU General Public License (GPL)](https://opensource.org/licenses/GPL-3.0) to it soon. For now, don't do anything stupid D:< with it D:<
 
 ##Todo list?
+- [X] Events
+- [X] Players
+- [X] Items
+- [X] Skills
+- [ ] Scripting
 - [ ] Battle system
-- [ ] Skills
-- [ ] Scripting for Skills
 - [ ] Monsters
 - [ ] Monster AI
 
