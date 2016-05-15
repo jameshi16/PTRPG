@@ -142,17 +142,14 @@ void Productivity_RPGDialog::OnInit(wxInitDialogEvent& event)
     ScriptManager sm;
     sm.loadScripts(sm.aquireAllFiles());
 
-    thread *t_1 = new thread(bind(&Game::GameLoop, &game, 10)); //starts the game loop
+    thread *t_1 = new thread(&Game::GameLoop, &game, 10); //starts the game loop
     theGameThread = t_1; //sets the thread
 }
 
 void Productivity_RPGDialog::OnClose(wxCloseEvent& event)
 {
-    game.StopGameLoop();
-    if (theGameThread->joinable())
-        theGameThread->join();
+    game.StopGameLoop(); //l
+    theGameThread->join();
 
-    delete theGameThread;
-
-    Close();
+    event.Skip();
 }
