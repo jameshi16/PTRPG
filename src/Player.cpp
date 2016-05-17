@@ -1,6 +1,12 @@
 #include "Player.h"
+#include "Item.h"
+#include "Skill.h"
+
+//For the gui
+#include "GuiLogicBridge.h"
 
 #include "boost/thread.hpp" //Include for Mutex
+#include "log.h" //log absolutely everything
 
 using namespace boost;
 mutex mtx; //Declares a mutex object
@@ -42,6 +48,71 @@ unsigned int Player::getPlayerHP()
     returnValue = Hp;
     mtx.unlock();
     return returnValue;
+}
+
+/*inventory accessors*/
+/**Returns 0 if not exist**/
+Item* Player::getItem(unsigned int position)
+{
+    if (!(position > Inventory.size()))
+        return Inventory[position];
+
+    Loggers::nL.e("Error getting item at " + Loggers::its(position) + ".");
+    return 0;
+}
+
+Item* Player::addItem(Item* item)
+{
+    Inventory.push_back(item); //pushes back the item
+    return item;
+}
+
+/**Returns 0 if not exist/size too huge**/
+Item* Player::setItem(unsigned int position, Item* item)
+{
+    if (!(position > Inventory.size()))
+    {
+        Inventory[position] = item;
+        return item;
+    }
+    Loggers::nL.e(Loggers::its(position) + " is above the Inventory size of " + Loggers::its(Inventory.size()) + ".");
+    return 0;
+}
+
+/**Returns 0 if no item found in position**/
+int Player::removeItem(unsigned int position)
+{
+    if (position > Inventory.size())
+        return 0;
+
+    Inventory.erase(Inventory.begin() + position); //erases the item
+    return 1;
+}
+
+/**Returns 0 if not found**/
+Item* Player::getItem(string s)
+{
+    for (int iii = 0; iii < Inventory.size(); iii++)
+    {
+        if (Inventory[iii]->getItemName() == s)
+            return Inventory[iii];
+    }
+    return 0;
+}
+
+/**
+@arg fromPos - the position you want to search from
+@arg s - itemname
+@return 0 if not found
+**/
+Item* Player::getItem(unsigned int fromPos, string s)
+{
+    for (int iii = fromPos; iii < Inventory.size(); iii++)
+    {
+        if (Inventory[iii]->getItemName() == s)
+            return Inventory[iii];
+    }
+    return 0;
 }
 
 Player::~Player()

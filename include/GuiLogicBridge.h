@@ -2,6 +2,7 @@
 #define GUILOGICBRIDGE_H
 
 #include <wx/stattext.h>
+#include <wx/listctrl.h>
 
 class Game;
 
@@ -17,6 +18,7 @@ class GuiLogicBridge
 
         static wxStaticText *HpLabel;
         static wxStaticText *NameLabel;
+        static wxListCtrl *InventoryDisplay;
 
         virtual ~GuiLogicBridge();
 

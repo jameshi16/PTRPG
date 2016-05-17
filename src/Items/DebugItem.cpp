@@ -1,9 +1,11 @@
 #include "DebugItem.h"
 #include "Game.h"
+#include "string"
 
 DebugItem::DebugItem()
 {
     //ctor
+    setItemName("developer.item");
 }
 
 ///Uses the item

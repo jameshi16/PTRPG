@@ -22,7 +22,7 @@ int Game::GameLoop(int frequencyofLoop)
         gameLogicMutex.lock(); //locks the mutex
         /*Event processing block*/
 
-        for (unsigned int iii = 0; iii < EventList.size(); iii++) //iii should technically be starting from 0, but this is to temporarily solve issue #5
+        for (unsigned int iii = 0; iii < EventList.size(); iii++)
         {
             if (EventList[iii]->canExecute(this) == true) //Pass "this", a pointer to the game class
             {

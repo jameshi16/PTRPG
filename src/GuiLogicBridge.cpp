@@ -1,5 +1,6 @@
 #include "GuiLogicBridge.h"
 #include "Game.h"
+#include "wxCustomListItem.h"
 #include "sstream"
 
 GuiLogicBridge::GuiLogicBridge()
@@ -10,6 +11,7 @@ GuiLogicBridge::GuiLogicBridge()
 //variables
 wxStaticText *GuiLogicBridge::HpLabel = 0; //I should be
 wxStaticText *GuiLogicBridge::NameLabel = 0; //zero memorying this
+wxListCtrl *GuiLogicBridge::InventoryDisplay = 0; //Zero Memory
 
 int GuiLogicBridge::update(Game *game)
 {
@@ -24,6 +26,15 @@ int GuiLogicBridge::update(Game *game)
     if (NameLabel != 0)
     {
         if (NameLabel->GetLabel() != game->player->getPlayerName()) {NameLabel->SetLabel(game->player->getPlayerName());} //updates the name label
+    }
+
+    //if (InventoryDisplay->GetItemCount() != )
+    for (unsigned int iii = 0; iii < game->player->Inventory.size(); iii++)
+    {
+        wxCustomListItem cli;
+        cli.SetText(game->player->getItem(iii)->getItemName()); //text of item is item name
+        cli.setPairedItem(game->player->getItem(iii)); //pair it to the item
+        InventoryDisplay->InsertItem(cli); //insert it into the inventory
     }
 
     return 0; //Everything is ok

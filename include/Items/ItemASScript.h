@@ -39,6 +39,15 @@ class ItemASScript : public Item
 
             theobj->AddRef(); //Makes the object come to life again
 
+            //Checks if ItemName is empty.
+            if (theobj->getItemName() == "")
+            {
+                Loggers::nL.e("Definition of ItemName not found. Insert setItemName(itemname); into the constructor of item class " + (std::string)(m_obj->GetObjectType()->GetName()) + ".");
+                obj->Release();
+                theobj->Release();
+                return;
+            }
+
             Game().currentGameInstance->addItem(theobj); //Adds the item to the game
 
             obj->Release(); //destroys object used to create the Item

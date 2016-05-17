@@ -25,6 +25,8 @@ shared abstract class ItemASScript
 	}
 	
 	int useItem(Game @game) {m_obj.useItem(game); return 1;}
+	string setItemName(string s) {return m_obj.setItemName(s);}
+	string getItemName() {return m_obj.getItemName();}
 	
 	void AddToGame() {m_obj.AddToGame();}
 	
@@ -44,6 +46,8 @@ shared abstract class ASSkill
 	int useItem(Game @game) {m_obj.useSkill(game);}
 
 	void AddToGame() {m_obj.AddToGame();}
+	string setSkillName(string s) {return m_obj.setItemName(s);}
+	string getSkillName() {return m_obj.getSkillName();}
 
 	ASSkill_t @opImplCast() { return m_obj; }
 

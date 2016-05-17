@@ -51,6 +51,15 @@ class ASSkill : public Skill
 
             theobj->AddRef(); //Makes both sides alive
 
+            //Checks if SkillName is empty.
+            if (theobj->getSkillName() == "")
+            {
+                Loggers::nL.e("Definition of SkillName not found. Insert setSkillName(skillname); into the constructor of skill class " + (std::string)(m_obj->GetObjectType()->GetName()) + ".");
+                obj->Release();
+                theobj->Release();
+                return;
+            }
+
             Game().currentGameInstance->addSkill(theobj); //adds it to the game
 
             obj->Release(); //Releases this, as it is just a lesser copy of theobj

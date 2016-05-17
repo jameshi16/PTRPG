@@ -9,6 +9,7 @@
 
 #include "Productivity_RPGMain.h"
 #include <wx/msgdlg.h>
+#include "wxCustomListItem.h"
 #include <boost/thread.hpp>
 #include "GuiLogicBridge.h"
 #include "Event.h"
@@ -20,6 +21,7 @@
 
 /*Events to add*/
 #include "EventChangePlayerName.h"
+#include "EventUseItem.h"
 
 //(*InternalHeaders(Productivity_RPGDialog)
 #include <wx/intl.h>
@@ -63,6 +65,9 @@ const long Productivity_RPGDialog::ID_STATICTEXT7 = wxNewId();
 const long Productivity_RPGDialog::ID_PANEL2 = wxNewId();
 const long Productivity_RPGDialog::ID_STATICTEXT8 = wxNewId();
 const long Productivity_RPGDialog::ID_PANEL1 = wxNewId();
+const long Productivity_RPGDialog::ID_LISTCTRL1 = wxNewId();
+const long Productivity_RPGDialog::ID_BUTTON1 = wxNewId();
+const long Productivity_RPGDialog::ID_PANEL3 = wxNewId();
 const long Productivity_RPGDialog::ID_NOTEBOOK1 = wxNewId();
 const long Productivity_RPGDialog::ID_STATICTEXT1 = wxNewId();
 const long Productivity_RPGDialog::ID_RICHTEXTCTRL1 = wxNewId();
@@ -110,7 +115,11 @@ Productivity_RPGDialog::Productivity_RPGDialog(wxWindow* parent,wxWindowID id)
     Panel1->SetSizer(FlexGridSizer2);
     FlexGridSizer2->Fit(Panel1);
     FlexGridSizer2->SetSizeHints(Panel1);
+    Panel3 = new wxPanel(Notebook1, ID_PANEL3, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL3"));
+    ListCtrl1 = new wxListCtrl(Panel3, ID_LISTCTRL1, wxPoint(16,16), wxSize(640,248), 0, wxDefaultValidator, _T("ID_LISTCTRL1"));
+    Button1 = new wxButton(Panel3, ID_BUTTON1, _("Use"), wxPoint(576,272), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
     Notebook1->AddPage(Panel1, _("Player Profile"), false);
+    Notebook1->AddPage(Panel3, _("Inventory"), false);
     FlexGridSizer1->Add(Notebook1, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     ConstText1 = new wxStaticText(this, ID_STATICTEXT1, _("Log"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
     FlexGridSizer1->Add(ConstText1, 1, wxALL|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
@@ -122,6 +131,7 @@ Productivity_RPGDialog::Productivity_RPGDialog(wxWindow* parent,wxWindowID id)
     FlexGridSizer1->Fit(this);
     FlexGridSizer1->SetSizeHints(this);
 
+    Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Productivity_RPGDialog::OnButton1Click1);
     Connect(wxID_ANY,wxEVT_INIT_DIALOG,(wxObjectEventFunction)&Productivity_RPGDialog::OnInit);
     Connect(wxID_ANY,wxEVT_CLOSE_WINDOW,(wxObjectEventFunction)&Productivity_RPGDialog::OnClose);
     //*)
@@ -137,6 +147,7 @@ void Productivity_RPGDialog::OnInit(wxInitDialogEvent& event)
     using namespace boost;
     GuiLogicBridge::HpLabel = hpLabel;
     GuiLogicBridge::NameLabel = playerNameLabel;
+    GuiLogicBridge::InventoryDisplay = ListCtrl1;
 
     //Need a proper loader for this//
     ScriptManager sm;
@@ -144,6 +155,7 @@ void Productivity_RPGDialog::OnInit(wxInitDialogEvent& event)
 
     thread *t_1 = new thread(&Game::GameLoop, &game, 10); //starts the game loop
     theGameThread = t_1; //sets the thread
+
 }
 
 void Productivity_RPGDialog::OnClose(wxCloseEvent& event)
@@ -152,4 +164,9 @@ void Productivity_RPGDialog::OnClose(wxCloseEvent& event)
     theGameThread->join();
 
     event.Skip();
+}
+
+void Productivity_RPGDialog::OnButton1Click1(wxCommandEvent& event)
+{
+
 }

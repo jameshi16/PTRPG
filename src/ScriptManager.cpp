@@ -50,6 +50,12 @@ void ScriptManager::WrapGame(asIScriptEngine *engine)
     engine->RegisterObjectMethod("Player", "string getPlayerName()", asMETHOD(Player, getPlayerName), asCALL_THISCALL); //registers getname
     engine->RegisterObjectMethod("Player", "int setPlayerHP(int)", asMETHODPR(Player, setPlayerHP, (unsigned int), unsigned int), asCALL_THISCALL); //registers set player hp
     engine->RegisterObjectMethod("Player", "int getPlayerHP()", asMETHOD(Player, setPlayerHP), asCALL_THISCALL); //registers get player hp
+    engine->RegisterObjectMethod("Player", "Item* getItem(int)", asMETHODPR(Player, getItem, (unsigned int), Item*), asCALL_THISCALL); //gets an item
+    engine->RegisterObjectMethod("Player", "Item* getItem(string)", asMETHODPR(Player, getItem, (string), Item*), asCALL_THISCALL); //gets an item
+    engine->RegisterObjectMethod("Player", "Item* getItem(unsigned int, string)", asMETHODPR(Player, getItem, (unsigned int, string), Item*), asCALL_THISCALL); //gets an item
+    engine->RegisterObjectMethod("Player", "Item* addItem(Item*)", asMETHODPR(Player, addItem, (Item*), Item*), asCALL_THISCALL); //adds an item to inventory
+    engine->RegisterObjectMethod("Player", "Item* setItem(unsigned int, Item*)", asMETHODPR(Player, setItem, (unsigned int, Item*), Item*), asCALL_THISCALL); //sets an item in inventory
+    engine->RegisterObjectMethod("Player", "int removeItem(unsigned int)", asMETHODPR(Player, removeItem, (unsigned int), int), asCALL_THISCALL); //removes an item
 
     engine->RegisterObjectProperty("Game", "Player @player", asOFFSET(Game, player));
 }
@@ -75,6 +81,8 @@ void ScriptManager::WrapItem(asIScriptEngine *engine)
     engine->RegisterObjectBehaviour("ItemASScript_t", asBEHAVE_RELEASE, "void f()", asMETHOD(ItemASScript, Release), asCALL_THISCALL);
     engine->RegisterObjectMethod("ItemASScript_t", "int useItem(Game@)", asMETHODPR(ItemASScript, useItem, (Game*), int), asCALL_THISCALL);
     engine->RegisterObjectMethod("ItemASScript_t", "void AddToGame()", asMETHOD(ItemASScript, AddToGame), asCALL_THISCALL);
+    engine->RegisterObjectMethod("ItemASScript_t", "string setItemName(string)", asMETHODPR(ItemASScript, setItemName, (string), string), asCALL_THISCALL); //Used to identify items
+    engine->RegisterObjectMethod("ItemASScript_t", "string getItemName()", asMETHODPR(ItemASScript, getItemName, (), string), asCALL_THISCALL); //Used to identify items
 }
 
 void ScriptManager::WrapSkill(asIScriptEngine *engine)
@@ -85,6 +93,8 @@ void ScriptManager::WrapSkill(asIScriptEngine *engine)
     engine->RegisterObjectBehaviour("ASSkill_t", asBEHAVE_RELEASE, "void f()", asMETHOD(ASSkill, Release), asCALL_THISCALL);
     engine->RegisterObjectMethod("ASSkill_t", "void useSkill(Game@)", asMETHODPR(ASSkill, useSkill, (Game*), void), asCALL_THISCALL);
     engine->RegisterObjectMethod("ASSkill_t", "void AddToGame()", asMETHOD(ASSkill, AddToGame), asCALL_THISCALL);
+    engine->RegisterObjectMethod("ASSkill_t", "string setSkillName(string)", asMETHODPR(ASSkill, setSkillName, (string), string), asCALL_THISCALL); //Used to identify skills
+    engine->RegisterObjectMethod("ASSkill_t", "string getSkillName()" , asMETHODPR(ASSkill, getSkillName, (), string), asCALL_THISCALL); //Used to identify skills
 }
 
 /**Only call once ever**/
