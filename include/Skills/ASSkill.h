@@ -5,6 +5,7 @@
 
 #include <Game.h>
 #include <Skill.h>
+#include <log.h>
 #include <iostream>
 #include <string>
 

@@ -33,6 +33,9 @@ class Player
         Item* getItem(string);
         Item* getItem(unsigned int, string); //Gets an item from position onwards
 
+        /*cool variables*/
+        bool guiUpdate = true; //this will cause the inventory and skill list to update
+
 
         virtual ~Player();
     protected:

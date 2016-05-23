@@ -116,7 +116,7 @@ Productivity_RPGDialog::Productivity_RPGDialog(wxWindow* parent,wxWindowID id)
     FlexGridSizer2->Fit(Panel1);
     FlexGridSizer2->SetSizeHints(Panel1);
     Panel3 = new wxPanel(Notebook1, ID_PANEL3, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL3"));
-    ListCtrl1 = new wxListCtrl(Panel3, ID_LISTCTRL1, wxPoint(16,16), wxSize(640,248), 0, wxDefaultValidator, _T("ID_LISTCTRL1"));
+    ListCtrl1 = new wxListCtrl(Panel3, ID_LISTCTRL1, wxPoint(16,16), wxSize(640,248), wxLC_LIST, wxDefaultValidator, _T("ID_LISTCTRL1"));
     Button1 = new wxButton(Panel3, ID_BUTTON1, _("Use"), wxPoint(576,272), wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
     Notebook1->AddPage(Panel1, _("Player Profile"), false);
     Notebook1->AddPage(Panel3, _("Inventory"), false);
@@ -168,5 +168,15 @@ void Productivity_RPGDialog::OnClose(wxCloseEvent& event)
 
 void Productivity_RPGDialog::OnButton1Click1(wxCommandEvent& event)
 {
+    long itemIndex = -1;
+    while ((itemIndex = ListCtrl1->GetNextItem(itemIndex, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED)) != wxNOT_FOUND)
+    {
+        wxCustomListItem item;
+        item.SetId(itemIndex); //sets the id
+        ListCtrl1->GetItem(item); //gets the item
+        EventUseItem *eui = new EventUseItem(item.getPairedItem()); //this has to work man
+        game.addEvent(eui); //adds to the game
 
+        return;
+    }
 }

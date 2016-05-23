@@ -28,14 +28,18 @@ int GuiLogicBridge::update(Game *game)
         if (NameLabel->GetLabel() != game->player->getPlayerName()) {NameLabel->SetLabel(game->player->getPlayerName());} //updates the name label
     }
 
-    //if (InventoryDisplay->GetItemCount() != )
+    if (game->player->guiUpdate == true)
     for (unsigned int iii = 0; iii < game->player->Inventory.size(); iii++)
     {
         wxCustomListItem cli;
         cli.SetText(game->player->getItem(iii)->getItemName()); //text of item is item name
         cli.setPairedItem(game->player->getItem(iii)); //pair it to the item
+        cli.SetId(iii); //sets the item id
         InventoryDisplay->InsertItem(cli); //insert it into the inventory
     }
+
+    /*reset all variables that asks for visual updates*/
+    game->player->guiUpdate = false;
 
     return 0; //Everything is ok
 }

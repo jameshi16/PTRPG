@@ -64,6 +64,7 @@ Item* Player::getItem(unsigned int position)
 Item* Player::addItem(Item* item)
 {
     Inventory.push_back(item); //pushes back the item
+    guiUpdate = true; //tells the game to update the gui
     return item;
 }
 
@@ -76,6 +77,7 @@ Item* Player::setItem(unsigned int position, Item* item)
         return item;
     }
     Loggers::nL.e(Loggers::its(position) + " is above the Inventory size of " + Loggers::its(Inventory.size()) + ".");
+    guiUpdate = true; //tells the game to update the gui
     return 0;
 }
 
@@ -86,6 +88,7 @@ int Player::removeItem(unsigned int position)
         return 0;
 
     Inventory.erase(Inventory.begin() + position); //erases the item
+    guiUpdate = true; //tells the game to update the gui
     return 1;
 }
 

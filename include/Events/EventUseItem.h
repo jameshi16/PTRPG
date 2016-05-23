@@ -21,7 +21,7 @@ class EventUseItem : public Event
             return m_theItem->useItem(game); //JUST DO IT (dont let your dreams be dreams)
         }
 
-        bool canExecute(void){return true;}
+        bool canExecute(Game*){return true;}
 
         virtual ~EventUseItem()
         {

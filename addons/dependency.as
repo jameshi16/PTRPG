@@ -43,18 +43,18 @@ shared abstract class ASSkill
 		@m_obj = ASSkill_t();
 	}
 
-	int useItem(Game @game) {m_obj.useSkill(game);}
+	int useItem(Game @game) {m_obj.useSkill(game); return 1;}
 
-	void AddToGame() {m_obj.AddToGame();}
-	string setSkillName(string s) {return m_obj.setItemName(s);}
-	string getSkillName() {return m_obj.getSkillName();}
+	void AddToGame() { m_obj.AddToGame(); }
+	string setSkillName(string s) { return m_obj.setSkillName(s); }
+	string getSkillName() { return m_obj.getSkillName();}
 
 	ASSkill_t @opImplCast() { return m_obj; }
 
 	private ASSkill_t @m_obj;
 }
 
-void main()
+void jameshi16_dependency_90937917(Game @game)
 {
 	//I coded it in such a way that all the scripts need to have one master function
 }

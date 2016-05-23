@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <vector>
+#include <string>
 
 #include "Event.h"
 #include "Item.h"
@@ -45,6 +46,8 @@ class Game
         unsigned int sizeOfEvents(); //returns the size of the event array
         unsigned int sizeOfItems(); //returns the size of the item array
         unsigned int sizeOfSkills(); //returns the size of the skill array
+
+        Item* findItemByName(unsigned int, string); //finds an item by name. This is required to make scripting easier
 
         Player *player = new Player(); //This is the player
 

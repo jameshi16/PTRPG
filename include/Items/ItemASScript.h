@@ -4,6 +4,7 @@
 #include <Item.h>
 #include <Game.h>
 #include <ScriptManager.h>
+#include <log.h>
 
 #include <angelscript.h>
 #include <scriptbuilder/scriptbuilder.h>

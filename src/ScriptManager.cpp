@@ -43,6 +43,7 @@ void ScriptManager::WrapGame(asIScriptEngine *engine)
     engine->RegisterObjectMethod("Game", "Item@ addItem(Item@)", asMETHODPR(Game, addItem, (Item*), Item*), asCALL_THISCALL); //registers add item
     engine->RegisterObjectMethod("Game", "Skill@ setSkill(int, Skill@)", asMETHODPR(Game, setSkill, (unsigned int, Skill*), Skill*), asCALL_THISCALL); //registers set skill
     engine->RegisterObjectMethod("Game", "Skill@ addSkill(Skill@)", asMETHODPR(Game, addSkill, (Skill*), Skill*), asCALL_THISCALL); //registers add skill
+    engine->RegisterObjectMethod("Game", "Item@ findItemByName(int, string)", asMETHODPR(Game, findItemByName, (unsigned int, string), Item*), asCALL_THISCALL); //registers find item by name
 
     //TODO: implement getAllEvent() and getAllItems() [not happening soon]
 
@@ -50,14 +51,14 @@ void ScriptManager::WrapGame(asIScriptEngine *engine)
     engine->RegisterObjectMethod("Player", "string getPlayerName()", asMETHOD(Player, getPlayerName), asCALL_THISCALL); //registers getname
     engine->RegisterObjectMethod("Player", "int setPlayerHP(int)", asMETHODPR(Player, setPlayerHP, (unsigned int), unsigned int), asCALL_THISCALL); //registers set player hp
     engine->RegisterObjectMethod("Player", "int getPlayerHP()", asMETHOD(Player, setPlayerHP), asCALL_THISCALL); //registers get player hp
-    engine->RegisterObjectMethod("Player", "Item* getItem(int)", asMETHODPR(Player, getItem, (unsigned int), Item*), asCALL_THISCALL); //gets an item
-    engine->RegisterObjectMethod("Player", "Item* getItem(string)", asMETHODPR(Player, getItem, (string), Item*), asCALL_THISCALL); //gets an item
-    engine->RegisterObjectMethod("Player", "Item* getItem(unsigned int, string)", asMETHODPR(Player, getItem, (unsigned int, string), Item*), asCALL_THISCALL); //gets an item
-    engine->RegisterObjectMethod("Player", "Item* addItem(Item*)", asMETHODPR(Player, addItem, (Item*), Item*), asCALL_THISCALL); //adds an item to inventory
-    engine->RegisterObjectMethod("Player", "Item* setItem(unsigned int, Item*)", asMETHODPR(Player, setItem, (unsigned int, Item*), Item*), asCALL_THISCALL); //sets an item in inventory
-    engine->RegisterObjectMethod("Player", "int removeItem(unsigned int)", asMETHODPR(Player, removeItem, (unsigned int), int), asCALL_THISCALL); //removes an item
+    engine->RegisterObjectMethod("Player", "Item@ getItem(int)", asMETHODPR(Player, getItem, (unsigned int), Item*), asCALL_THISCALL); //gets an item
+    engine->RegisterObjectMethod("Player", "Item@ getItem(string)", asMETHODPR(Player, getItem, (string), Item*), asCALL_THISCALL); //gets an item
+    engine->RegisterObjectMethod("Player", "Item@ getItem(int, string)", asMETHODPR(Player, getItem, (unsigned int, string), Item*), asCALL_THISCALL); //gets an item
+    engine->RegisterObjectMethod("Player", "Item@ addItem(Item@)", asMETHODPR(Player, addItem, (Item*), Item*), asCALL_THISCALL); //adds an item to inventory
+    engine->RegisterObjectMethod("Player", "Item@ setItem(int, Item@)", asMETHODPR(Player, setItem, (unsigned int, Item*), Item*), asCALL_THISCALL); //sets an item in inventory
+    engine->RegisterObjectMethod("Player", "int removeItem(int)", asMETHODPR(Player, removeItem, (unsigned int), int), asCALL_THISCALL); //removes an item
 
-    engine->RegisterObjectProperty("Game", "Player @player", asOFFSET(Game, player));
+    engine->RegisterObjectProperty("Game", "Player @player", asOFFSET(Game, player)); //an object in an object (yeah I know shh)
 }
 
 ///Loads the EventASScript
@@ -133,6 +134,7 @@ void ScriptManager::loadScripts(vector<string> s_FileNames)
         //creates the context
         asIScriptContext *ctx = engine->CreateContext();
         ctx->Prepare(func);
+        ctx->SetArgObject(0, Game().currentGameInstance);
         ctx->Execute();
         ctx->Release();
         //Don't really need to shut down the engine yet

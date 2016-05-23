@@ -33,7 +33,7 @@ class StupidItem : ItemASScript
 	}
 }
 
-void test()
+void test(Game @game)
 {
 	//Declares new events and items
 	TestEvent te;
@@ -43,6 +43,6 @@ void test()
 	te.AddToGame();
 	si.AddToGame();
 
-	game.player.addItem(@si); //not sure if this will work
-	game.player.addItem(game.player.getItem("jameshi16.dumbitem")); //this will definitely work though
+	//game.player.addItem(si); //not sure if this will work
+	game.player.addItem(game.findItemByName(0, "jameshi16.dumbitem")); //woops. Need to fix the C++ side for this
 }

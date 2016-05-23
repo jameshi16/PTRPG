@@ -244,6 +244,27 @@ unsigned int Game::sizeOfSkills()
     return returnValue;
 }
 
+/**
+@arg unsigned int - Position to look from
+@arg string - the ItemName to find
+@return Returns the item
+*/
+Item* Game::findItemByName(unsigned int iii, string s)
+{
+    Item* returnValue = 0; //declares a new variable
+    gameLogicMutex.lock(); //locks the mutex
+    for (unsigned int jjj = iii; jjj < ItemList.size(); jjj++) //searches for the item systematically
+    {
+        if (ItemList[jjj]->getItemName() == s)
+        {
+            returnValue = ItemList[jjj];
+            break;
+        }
+    }
+    gameLogicMutex.unlock(); //unlocks the mutex
+    return returnValue;
+}
+
 Game::~Game()
 {
     //dtor
