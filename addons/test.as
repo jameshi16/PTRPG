@@ -18,6 +18,29 @@ class TestEvent : EventASScript
 		}
 }
 
+class AnotherTestEvent : EventASScript
+{
+	AnotherTestEvent()
+	{
+		Continuous = true; //new feature :D
+	}
+
+	int ExecuteEvent(Game @game)
+	{
+		game.player.setPlayerHP(game.player.getPlayerHP() + 1);
+		return 1;
+	}
+
+	bool canExecute(Game @game)
+	{
+		if (game.player.getPlayerName() == "It really works!")
+		{
+			return true;
+		}
+		return false;
+	}
+}
+
 class StupidItem : ItemASScript
 {
 
@@ -38,11 +61,12 @@ void test(Game @game)
 	//Declares new events and items
 	TestEvent te;
 	StupidItem si;
+	AnotherTestEvent ate;
 
 	//Add to game
 	te.AddToGame();
 	si.AddToGame();
+	ate.AddToGame();
 
-	//game.player.addItem(si); //not sure if this will work
 	game.player.addItem(game.findItemByName(0, "jameshi16.dumbitem")); //woops. Need to fix the C++ side for this
 }

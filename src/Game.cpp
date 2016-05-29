@@ -27,8 +27,11 @@ int Game::GameLoop(int frequencyofLoop)
             if (EventList[iii]->canExecute(this) == true) //Pass "this", a pointer to the game class
             {
                 EventList[iii]->ExecuteEvent(this); //for now, no handler for the return value
-                delete EventList[iii]; //deletes the pointer
-                EventList.erase(EventList.begin() + iii); //remove the pointer from the event list
+                if (EventList[iii]->Continuous == false) //If the continuity of the event is set to false
+                {
+                    delete EventList[iii]; //deletes the pointer
+                    EventList.erase(EventList.begin() + iii); //remove the pointer from the event list
+                }
             }
         }
 

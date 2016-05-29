@@ -71,6 +71,7 @@ void ScriptManager::WrapEvent(asIScriptEngine *engine)
     engine->RegisterObjectMethod("EventASScript_t", "int ExecuteEvent(Game@)", asMETHODPR(EventASScript, ExecuteEvent, (Game*), int), asCALL_THISCALL);
     engine->RegisterObjectMethod("EventASScript_t", "bool canExecute(Game@)", asMETHODPR(EventASScript, canExecute, (Game*), bool), asCALL_THISCALL);
     engine->RegisterObjectMethod("EventASScript_t", "void AddToGame()", asMETHOD(EventASScript, AddToGame), asCALL_THISCALL);
+    engine->RegisterObjectProperty("EventASScript_t", "bool Continuous", asOFFSET(EventASScript, Continuous));
 }
 
 ///Loads the ItemASScript

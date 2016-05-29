@@ -10,6 +10,12 @@ shared abstract class EventASScript
 	bool canExecute(Game @game) {m_obj.canExecute(game); return true;}
 	
 	void AddToGame() {m_obj.AddToGame();}
+
+	bool Continuous
+	{
+		get {return m_obj.Continuous;}
+		set {m_obj.Continuous = value;}
+	}
 	
 	EventASScript_t @opImplCast() { return m_obj; }
 	

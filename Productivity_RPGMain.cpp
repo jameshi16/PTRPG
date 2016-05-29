@@ -9,7 +9,6 @@
 
 #include "Productivity_RPGMain.h"
 #include <wx/msgdlg.h>
-#include "wxCustomListItem.h"
 #include <boost/thread.hpp>
 #include "GuiLogicBridge.h"
 #include "Event.h"
