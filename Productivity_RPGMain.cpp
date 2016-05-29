@@ -171,10 +171,10 @@ void Productivity_RPGDialog::OnButton1Click1(wxCommandEvent& event)
     long itemIndex = -1;
     while ((itemIndex = ListCtrl1->GetNextItem(itemIndex, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED)) != wxNOT_FOUND)
     {
-        wxCustomListItem item;
+        wxListItem item;
         item.SetId(itemIndex); //sets the id
         ListCtrl1->GetItem(item); //gets the item
-        EventUseItem *eui = new EventUseItem(item.getPairedItem()); //this has to work man
+        EventUseItem *eui = new EventUseItem(reinterpret_cast<Item*>(item.GetData()));
         game.addEvent(eui); //adds to the game
 
         return;

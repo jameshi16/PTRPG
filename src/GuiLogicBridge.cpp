@@ -1,6 +1,6 @@
 #include "GuiLogicBridge.h"
 #include "Game.h"
-#include "wxCustomListItem.h"
+#include "wx/listctrl.h"
 #include "sstream"
 
 GuiLogicBridge::GuiLogicBridge()
@@ -31,9 +31,9 @@ int GuiLogicBridge::update(Game *game)
     if (game->player->guiUpdate == true)
     for (unsigned int iii = 0; iii < game->player->Inventory.size(); iii++)
     {
-        wxCustomListItem cli;
+        wxListItem cli;
         cli.SetText(game->player->getItem(iii)->getItemName()); //text of item is item name
-        cli.setPairedItem(game->player->getItem(iii)); //pair it to the item
+        cli.SetData(reinterpret_cast<wxUIntPtr>(game->player->getItem(iii))); //pair it to the item
         cli.SetId(iii); //sets the item id
         InventoryDisplay->InsertItem(cli); //insert it into the inventory
     }
