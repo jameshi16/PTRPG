@@ -20,6 +20,7 @@ class Item
 
     private:
         std::string ItemName = ""; //all items need to have this
+        std::string DisplayName = ""; //displayname, don't really need this
 };
 
 #endif // ITEM_H

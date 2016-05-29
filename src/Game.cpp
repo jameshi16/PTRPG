@@ -145,7 +145,25 @@ Item* Game::setItem(unsigned int position, Item* theItem)
 Item* Game::addItem(Item* theItem)
 {
     gameLogicMutex.lock(); //locks the mutex
+    if (theItem->getItemName() == "") //this check is important, Have to make sure that nothing goes wrong
+    {
+        Loggers::nL.e("One of the Item has no itemname! Abort adding into the game.");
+        gameLogicMutex.unlock(); //I put unlock at every path because error checking
+        return theItem;
+    }
+    for (unsigned int iii = 0; iii < ItemList.size(); iii++) //checks if there are conflicting names
+    {
+        if (ItemList[iii]->getItemName() == theItem->getItemName())
+        {
+            Loggers::nL.e(theItem->getItemName() + " already exists! Abort adding into the game.");
+            gameLogicMutex.unlock(); //I put unlock at every path because error checking
+            return theItem;
+        }
+    }
     ItemList.push_back(theItem);
+
+    Loggers::nL.n("Added " + theItem->getItemName() + " to the game.");
+
     gameLogicMutex.unlock(); //unlock the mutex
     return theItem;
 }

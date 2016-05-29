@@ -148,6 +148,9 @@ void Productivity_RPGDialog::OnInit(wxInitDialogEvent& event)
     GuiLogicBridge::NameLabel = playerNameLabel;
     GuiLogicBridge::InventoryDisplay = ListCtrl1;
 
+    //Initialize Logger//
+    Loggers::nL;
+
     //Need a proper loader for this//
     ScriptManager sm;
     sm.loadScripts(sm.aquireAllFiles());
