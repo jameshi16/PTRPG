@@ -24,6 +24,15 @@ string Player::setPlayerName(string s_PlayerName)
     return s_PlayerName;
 }
 
+string Player::setPlayerPic(string s_PlayerPic)
+{
+    mtx.lock();
+    playerPic.LoadFile(s_PlayerPic.c_str());
+    guiUpdate = true;
+    mtx.unlock();
+    return s_PlayerPic;
+}
+
 unsigned int Player::setPlayerHP(unsigned int n_HP)
 {
     mtx.lock();
@@ -37,6 +46,16 @@ string Player::getPlayerName()
     string returnValue = "";
     mtx.lock();
     returnValue = playerName;
+    mtx.unlock();
+    return returnValue;
+}
+
+wxImage Player::getPlayerPic()
+{
+    wxImage returnValue;
+    mtx.lock();
+    returnValue = playerPic;
+    guiUpdate = true;
     mtx.unlock();
     return returnValue;
 }

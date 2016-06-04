@@ -47,6 +47,7 @@ void ScriptManager::WrapGame(asIScriptEngine *engine)
 
     engine->RegisterObjectMethod("Player", "string setPlayerName(string)", asMETHODPR(Player, setPlayerName, (std::string), std::string), asCALL_THISCALL); //registers changename
     engine->RegisterObjectMethod("Player", "string getPlayerName()", asMETHOD(Player, getPlayerName), asCALL_THISCALL); //registers getname
+    engine->RegisterObjectMethod("Player", "string setPlayerPic(string)", asMETHODPR(Player, setPlayerPic, (std::string), std::string), asCALL_THISCALL); //registers setimage
     engine->RegisterObjectMethod("Player", "int setPlayerHP(int)", asMETHODPR(Player, setPlayerHP, (unsigned int), unsigned int), asCALL_THISCALL); //registers set player hp
     engine->RegisterObjectMethod("Player", "int getPlayerHP()", asMETHOD(Player, setPlayerHP), asCALL_THISCALL); //registers get player hp
     engine->RegisterObjectMethod("Player", "Item@ getItem(int)", asMETHODPR(Player, getItem, (unsigned int), Item*), asCALL_THISCALL); //gets an item

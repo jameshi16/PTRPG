@@ -3,6 +3,7 @@
 
 #include <wx/stattext.h>
 #include <wx/listctrl.h>
+#include <wx/bmpbuttn.h>
 
 class Game;
 
@@ -19,6 +20,7 @@ class GuiLogicBridge
         static wxStaticText *HpLabel;
         static wxStaticText *NameLabel;
         static wxListCtrl *InventoryDisplay;
+        static wxBitmapButton *PlayerPic;
 
         virtual ~GuiLogicBridge();
 

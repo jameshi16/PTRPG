@@ -55,7 +55,7 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 }
 
 //(*IdInit(Productivity_RPGDialog)
-const long Productivity_RPGDialog::ID_STATICBITMAP1 = wxNewId();
+const long Productivity_RPGDialog::ID_BITMAPBUTTON1 = wxNewId();
 const long Productivity_RPGDialog::ID_STATICTEXT2 = wxNewId();
 const long Productivity_RPGDialog::ID_STATICTEXT4 = wxNewId();
 const long Productivity_RPGDialog::ID_STATICTEXT3 = wxNewId();
@@ -90,7 +90,7 @@ Productivity_RPGDialog::Productivity_RPGDialog(wxWindow* parent,wxWindowID id)
     Notebook1 = new wxNotebook(this, ID_NOTEBOOK1, wxDefaultPosition, wxSize(681,328), 0, _T("ID_NOTEBOOK1"));
     Panel1 = new wxPanel(Notebook1, ID_PANEL1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL1"));
     FlexGridSizer2 = new wxFlexGridSizer(2, 2, 0, 0);
-    playerImage = new wxStaticBitmap(Panel1, ID_STATICBITMAP1, wxNullBitmap, wxDefaultPosition, wxSize(268,254), wxSIMPLE_BORDER, _T("ID_STATICBITMAP1"));
+    playerImage = new wxBitmapButton(Panel1, ID_BITMAPBUTTON1, wxNullBitmap, wxDefaultPosition, wxSize(268,254), wxBU_AUTODRAW, wxDefaultValidator, _T("ID_BITMAPBUTTON1"));
     FlexGridSizer2->Add(playerImage, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Panel2 = new wxPanel(Panel1, ID_PANEL2, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL2"));
     FlexGridSizer3 = new wxFlexGridSizer(3, 2, 0, 0);
@@ -131,6 +131,7 @@ Productivity_RPGDialog::Productivity_RPGDialog(wxWindow* parent,wxWindowID id)
     FlexGridSizer1->Fit(this);
     FlexGridSizer1->SetSizeHints(this);
 
+    Connect(ID_BITMAPBUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Productivity_RPGDialog::OnplayerImageClick);
     Connect(ID_BUTTON1,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&Productivity_RPGDialog::OnButton1Click1);
     Connect(wxID_ANY,wxEVT_INIT_DIALOG,(wxObjectEventFunction)&Productivity_RPGDialog::OnInit);
     Connect(wxID_ANY,wxEVT_CLOSE_WINDOW,(wxObjectEventFunction)&Productivity_RPGDialog::OnClose);
@@ -152,6 +153,7 @@ void Productivity_RPGDialog::OnInit(wxInitDialogEvent& event)
     GuiLogicBridge::HpLabel = hpLabel;
     GuiLogicBridge::NameLabel = playerNameLabel;
     GuiLogicBridge::InventoryDisplay = ListCtrl1;
+    GuiLogicBridge::PlayerPic = playerImage;
 
     //Need a proper loader for this//
     ScriptManager sm;
@@ -183,4 +185,9 @@ void Productivity_RPGDialog::OnButton1Click1(wxCommandEvent& event)
 
         return;
     }
+}
+
+void Productivity_RPGDialog::OnplayerImageClick(wxCommandEvent& event)
+{
+    game.player->setPlayerPic("C:\\Users\\acer\\Pictures\\Profile Photo\\both.jpg");
 }

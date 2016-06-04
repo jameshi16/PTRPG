@@ -4,6 +4,9 @@
 #include <string>
 #include <vector>
 
+#include "wx/bitmap.h"
+#include "wx/image.h"
+
 using namespace std;
 
 class Item; //Forward declaration for Inventory
@@ -17,10 +20,12 @@ class Player
         Player();
         /*sets*/
         string setPlayerName(string); //Sets the player name and returns the player name
+        string setPlayerPic(string); //Sets the player profile photo and returns the path
         unsigned int setPlayerHP(unsigned int); //Sets the player health
 
         /*gets*/
         string getPlayerName(); //self explanatory
+        wxImage getPlayerPic(); //self explanatory
         unsigned int getPlayerHP(); //self explanatory
 
         /*inventory accessors*/
@@ -43,6 +48,7 @@ class Player
     private:
         unsigned int Hp = 0; //Health
         string playerName = "Player"; //Playername
+        wxImage playerPic; //The player's profile picture
 
         vector<Item*> Inventory = {}; //Inventory for the player
         vector<Skill*> Skills = {}; //Skills for the player

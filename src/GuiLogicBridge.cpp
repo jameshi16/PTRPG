@@ -12,6 +12,7 @@ GuiLogicBridge::GuiLogicBridge()
 wxStaticText *GuiLogicBridge::HpLabel = 0; //I should be
 wxStaticText *GuiLogicBridge::NameLabel = 0; //zero memorying this
 wxListCtrl *GuiLogicBridge::InventoryDisplay = 0; //Zero Memory
+wxBitmapButton *GuiLogicBridge::PlayerPic = 0; //Zero memory
 
 int GuiLogicBridge::update(Game *game)
 {
@@ -31,12 +32,16 @@ int GuiLogicBridge::update(Game *game)
     if (game->player->guiUpdate == true)
     for (unsigned int iii = 0; iii < game->player->Inventory.size(); iii++)
     {
+        InventoryDisplay->ClearAll(); //clears everything
         wxListItem cli;
         cli.SetText(game->player->getItem(iii)->getItemName()); //text of item is item name
         cli.SetData(reinterpret_cast<wxUIntPtr>(game->player->getItem(iii))); //pair it to the item
         cli.SetId(iii); //sets the item id
         InventoryDisplay->InsertItem(cli); //insert it into the inventory
     }
+
+    if (game->player->guiUpdate == true && game->player->getPlayerPic().IsOk() == true)
+        PlayerPic->SetBitmap(wxBitmap(game->player->getPlayerPic())); //change the image
 
     /*reset all variables that asks for visual updates*/
     game->player->guiUpdate = false;

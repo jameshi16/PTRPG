@@ -20,8 +20,8 @@
 #include <wx/sizer.h>
 #include <wx/stattext.h>
 #include <wx/panel.h>
+#include <wx/bmpbuttn.h>
 #include <wx/richtext/richtextctrl.h>
-#include <wx/statbmp.h>
 #include <wx/button.h>
 #include <wx/dialog.h>
 //*)
@@ -42,10 +42,11 @@ class Productivity_RPGDialog: public wxDialog
         void OnButton1Click(wxCommandEvent& event);
         void OnClose(wxCloseEvent& event);
         void OnButton1Click1(wxCommandEvent& event);
+        void OnplayerImageClick(wxCommandEvent& event);
         //*)
 
         //(*Identifiers(Productivity_RPGDialog)
-        static const long ID_STATICBITMAP1;
+        static const long ID_BITMAPBUTTON1;
         static const long ID_STATICTEXT2;
         static const long ID_STATICTEXT4;
         static const long ID_STATICTEXT3;
@@ -70,9 +71,9 @@ class Productivity_RPGDialog: public wxDialog
         wxRichTextCtrl* RichTextCtrl1;
         wxButton* Button1;
         wxStaticText* StaticText6;
+        wxBitmapButton* playerImage;
         wxPanel* Panel1;
         wxStaticText* StaticText1;
-        wxStaticBitmap* playerImage;
         wxPanel* Panel3;
         wxStaticText* StaticText5;
         wxStaticText* playerNameLabel;
