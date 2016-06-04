@@ -11,6 +11,7 @@
 #include <wx/msgdlg.h>
 #include <boost/thread.hpp>
 #include "GuiLogicBridge.h"
+#include "cstdint"
 #include "Event.h"
 #include "Item.h"
 
@@ -143,13 +144,14 @@ Productivity_RPGDialog::~Productivity_RPGDialog()
 }
 void Productivity_RPGDialog::OnInit(wxInitDialogEvent& event)
 {
+    //Initialize logger//
+    Loggers::nL.d("Log initialized"); //initialize
+    Loggers::nL.d("Debug mode is on."); //If debug mode is on, logs the debug
+
     using namespace boost;
     GuiLogicBridge::HpLabel = hpLabel;
     GuiLogicBridge::NameLabel = playerNameLabel;
     GuiLogicBridge::InventoryDisplay = ListCtrl1;
-
-    //Initialize Logger//
-    Loggers::nL;
 
     //Need a proper loader for this//
     ScriptManager sm;

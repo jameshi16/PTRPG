@@ -16,8 +16,6 @@
 
 #include "boost/filesystem.hpp"
 
-#include "log.h"
-
 ScriptManager::ScriptManager()
 {
     //ctor

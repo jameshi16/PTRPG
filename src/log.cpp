@@ -1,9 +1,16 @@
 #include "Log.h"
 
+//Log &nL = *(Log().getMainLoggingInstance()); //gets the first logging instance, I hope
+
 Log::Log(std::string fileName)
 {
-    f_file->open(fileName, std::ios::out); //opens the file
+    f_file->open(fileName, std::ios::out | std::ios::ate); //opens the file
 }
+
+/**
+@brief I can write a brief for this? Really? Seriously?
+*/
+Log* Log::mainLoggingInstance = 0; //initialize is good
 
 /**
 @brief Writes a warning to the log with a message.
@@ -80,4 +87,22 @@ std::string Log::getTime()
 Log::~Log()
 {
     //dtor
+}
+
+namespace Loggers
+{
+    Log &nL = Log::logInstance();
+    std::string its(int n_number)
+    {
+        std::stringstream ss;
+        ss << n_number;
+        return ss.str();
+    }
+
+    std::string its(std::uintptr_t n_number)
+    {
+        std::stringstream ss;
+        ss << n_number;
+        return ss.str();
+    }
 }

@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "log.h"
 
 #include "GuiLogicBridge.h"
 

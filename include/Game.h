@@ -10,6 +10,8 @@
 
 #include "Player.h"
 
+#include "log.h"
+
 #include "boost\chrono.hpp"
 #include "boost\thread.hpp"
 

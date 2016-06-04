@@ -3,6 +3,8 @@
 #include <angelscript.h>
 #include <vector>
 #include <string>
+
+#include "log.h"
 /*
 This class will not be used as of yet, until I manage to grasp AngelScript's C++ interface
 I have no idea why I'm pushing it to the master branch, but ya' know

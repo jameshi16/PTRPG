@@ -4,9 +4,11 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <cstdint>
 
 #include <boost/date_time.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
 
 #define DEBUGMODE 1 //change this to 1 for debug
@@ -14,7 +16,6 @@
 class Log
 {
     public:
-        Log(std::string);
 
         ///Write a warning to the file. (I can still fix myself)
         Log* w(std::string);
@@ -28,15 +29,29 @@ class Log
         ///Debug message
         Log* d(std::string);
 
-        virtual ~Log();
+        ///Logger class revamped
+        static Log& logInstance()
+        {
+            if (!mainLoggingInstance)
+                mainLoggingInstance = new Log((std::string)(boost::filesystem::current_path().string() +"\\log\\log" + boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time()) + ".log"));
+
+            return *mainLoggingInstance;
+        }
+
+        Log& operator=(const Log&); //don't implement
 
     protected:
+        Log(std::string);
+        virtual ~Log();
 
     private:
         std::ofstream *f_file = new std::ofstream();
         std::string getTime();
 
+        ///This is the first logging instance. A hack to solve issue #8
+        static Log *mainLoggingInstance;
         boost::mutex logMutex;
+
 
         ///Was lazy
         void logWithMessageType(std::string, std::string);
@@ -44,14 +59,9 @@ class Log
 
 namespace Loggers
 {
-    static Log nL(boost::filesystem::current_path().string() +"\\log\\log" + boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time()) + ".log");
-
-    static std::string its(int n_number)
-    {
-        std::stringstream ss;
-        ss << n_number;
-        return ss.str();
-    }
+    extern Log &nL;
+    extern std::string its(int);
+    extern std::string its(std::uintptr_t);
 };
 
 
