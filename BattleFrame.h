@@ -2,6 +2,7 @@
 #define BATTLEFRAME_H
 
 //(*Headers(BattleFrame)
+#include <wx/statbmp.h>
 #include <wx/frame.h>
 //*)
 
@@ -13,11 +14,15 @@ class BattleFrame: public wxFrame
 		virtual ~BattleFrame();
 
 		//(*Declarations(BattleFrame)
+		wxStaticBitmap* Enemy;
+		wxStaticBitmap* Player;
 		//*)
 
 	protected:
 
 		//(*Identifiers(BattleFrame)
+		static const long ID_STATICBITMAP1;
+		static const long ID_STATICBITMAP2;
 		//*)
 
 	private:
