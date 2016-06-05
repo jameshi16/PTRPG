@@ -41,7 +41,7 @@ int GuiLogicBridge::update(Game *game)
     }
 
     if (game->player->guiUpdate == true && game->player->getPlayerPic().IsOk() == true)
-        PlayerPic->SetBitmap(wxBitmap(game->player->getPlayerPic())); //change the image
+        PlayerPic->SetBitmap(wxBitmap(game->player->getPlayerPic().Scale(PlayerPic->GetSize().GetWidth(), PlayerPic->GetSize().GetHeight()))); //change the image
 
     /*reset all variables that asks for visual updates*/
     game->player->guiUpdate = false;

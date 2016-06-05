@@ -10,10 +10,13 @@
 #include "Productivity_RPGMain.h"
 #include <wx/msgdlg.h>
 #include <boost/thread.hpp>
+#include <wx/filedlg.h>
 #include "GuiLogicBridge.h"
 #include "cstdint"
 #include "Event.h"
 #include "Item.h"
+
+#include "boost/filesystem.hpp"
 
 #include "log.h"
 
@@ -90,7 +93,7 @@ Productivity_RPGDialog::Productivity_RPGDialog(wxWindow* parent,wxWindowID id)
     Notebook1 = new wxNotebook(this, ID_NOTEBOOK1, wxDefaultPosition, wxSize(681,328), 0, _T("ID_NOTEBOOK1"));
     Panel1 = new wxPanel(Notebook1, ID_PANEL1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL1"));
     FlexGridSizer2 = new wxFlexGridSizer(2, 2, 0, 0);
-    playerImage = new wxBitmapButton(Panel1, ID_BITMAPBUTTON1, wxNullBitmap, wxDefaultPosition, wxSize(268,254), wxBU_AUTODRAW, wxDefaultValidator, _T("ID_BITMAPBUTTON1"));
+    playerImage = new wxBitmapButton(Panel1, ID_BITMAPBUTTON1, wxNullBitmap, wxDefaultPosition, wxSize(268,254), wxBU_AUTODRAW|wxSIMPLE_BORDER, wxDefaultValidator, _T("ID_BITMAPBUTTON1"));
     FlexGridSizer2->Add(playerImage, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     Panel2 = new wxPanel(Panel1, ID_PANEL2, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL2"));
     FlexGridSizer3 = new wxFlexGridSizer(3, 2, 0, 0);
@@ -189,5 +192,11 @@ void Productivity_RPGDialog::OnButton1Click1(wxCommandEvent& event)
 
 void Productivity_RPGDialog::OnplayerImageClick(wxCommandEvent& event)
 {
-    game.player->setPlayerPic("C:\\Users\\acer\\Pictures\\Profile Photo\\both.jpg");
+    wxFileDialog openFileDialog(this, "Choose player picture", boost::filesystem::current_path().string(), "", "PNG files (*.png)|*.png|JPG files (*.jpg)|*.jpg", wxFD_OPEN|wxFD_FILE_MUST_EXIST); //open file dialog lmao
+
+    if (openFileDialog.ShowModal() == wxID_CANCEL)
+        return;
+
+    if (openFileDialog.GetPath() != "")
+        game.player->setPlayerPic(openFileDialog.GetPath().ToStdString()); //sets the player pic
 }
