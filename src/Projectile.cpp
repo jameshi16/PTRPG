@@ -98,7 +98,7 @@ wxPoint Projectile::getProjectileCenter(int x, int y)
 {
     if (currentType == PROJECTILE_TYPE_ANIMATION)
     {
-        return wxPoint(x + (m_animationctrl->GetSize().GetWidth()/2), y + (m_animationctrl->GetSize().GetHeight()/2))
+        return wxPoint(x + (m_animationctrl->GetSize().GetWidth()/2), y + (m_animationctrl->GetSize().GetHeight()/2));
     }
     if (currentType == PROJECTILE_TYPE_IMAGE)
     {
@@ -215,10 +215,10 @@ void Projectile::pos(wxPoint thePoint)
 int Projectile::centerPosX()
 {
     if (m_animation != 0 && m_animationctrl != 0)
-        return getProjectileCenter(m_animationctrl.GetPosition().x, m_animationctrl.GetPosition().y).x;
+        return getProjectileCenter(m_animationctrl->GetPosition().x, m_animationctrl->GetPosition().y).x;
 
     if (m_image != 0 && m_staticbitmap != 0)
-        return getProjectileCenter(m_staticbitmap.GetPosition().x, m_staticbitmap.GetPosition().y).x;
+        return getProjectileCenter(m_staticbitmap->GetPosition().x, m_staticbitmap->GetPosition().y).x;
 
     return 0;
 }
@@ -227,11 +227,11 @@ void Projectile::centerPosX(int x)
 {
     if (m_animation != 0 && m_animationctrl != 0)
     {
-        posX(x - (m_animationctrl.GetSize().GetWidth()/2));
+        posX(x - (m_animationctrl->GetSize().GetWidth()/2));
     }
     if (m_image != 0 && m_staticbitmap != 0)
     {
-        posX(x - (m_staticbitmap.GetSize().GetWidth()/2));
+        posX(x - (m_staticbitmap->GetSize().GetWidth()/2));
     }
 }
 
@@ -252,11 +252,11 @@ void Projectile::centerPosY(int y)
 {
     if (m_animation != 0 && m_animationctrl != 0)
     {
-        posY(y - (m_animationctrl.GetSize().GetHeight()/2));
+        posY(y - (m_animationctrl->GetSize().GetHeight()/2));
     }
     if (m_image != 0 && m_animationctrl != 0)
     {
-        posY(y- (m_staticbitmap.GetSize().GetHeight()/2));
+        posY(y- (m_staticbitmap->GetSize().GetHeight()/2));
     }
 }
 
@@ -264,13 +264,13 @@ void Projectile::centerPos(int x, int y)
 {
     if (m_animation != 0 && m_animationctrl != 0)
     {
-        posX(x - (m_animationctrl.GetSize().GetWidth()/2));
-        posY(y - (m_animationctrl.GetSize().GetHeight()/2));
+        posX(x - (m_animationctrl->GetSize().GetWidth()/2));
+        posY(y - (m_animationctrl->GetSize().GetHeight()/2));
     }
     if (m_image != 0 && m_staticbitmap != 0)
     {
-        posX(x - (m_staticbitmap.GetSize().GetWidth()/2));
-        posY(y - (m_staticbitmap.GetSize().GetHeight()/2));
+        posX(x - (m_staticbitmap->GetSize().GetWidth()/2));
+        posY(y - (m_staticbitmap->GetSize().GetHeight()/2));
     }
 }
 
