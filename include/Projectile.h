@@ -72,6 +72,20 @@ class Projectile
         ///@arg the wxPoint object
         void pos(wxPoint thePoint);
 
+        ///@return the center x co-ordinate
+        int centerPosX();
+        ///@arg x - the x co-ordinate to set
+        void centerPosX(int x);
+        ///@return the center y co-ordinate
+        int centerPosY();
+        ///@arg y the y co-ordinate to set
+        void centerPosY(int y);
+
+        ///@arg the positions to set
+        void centerPos(int x, int y);
+        ///@arg the wxPoint object
+        void centerPos(wxPoint thePoint);
+
         ///Removes some power from each other
         void powerDamage(Projectile* theOther);
         ///Removes some power from each other
