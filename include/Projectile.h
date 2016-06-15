@@ -109,7 +109,7 @@ class Projectile
         wxStaticBitmap *m_staticbitmap = 0;
 
         imageType currentType;
-        int power = 0;
+        double power = 0.0;
 };
 
 #endif // PROJECTILE_H
