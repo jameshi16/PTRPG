@@ -6,8 +6,11 @@
 //Just a static image
 #include "wx/statbmp.h"
 #include "wx/image.h"
+#include "wx/bitmap.h"
 //wxPoint
 #include "wx/gdicmn.h"
+//wxWindow
+#include "wx/window.h"
 
 #include "string"
 
@@ -26,12 +29,28 @@ class Projectile
         @param pathToImage - The path to the image file
         @param Type - The type of the file
         */
-        static Projectile Create(std::string pathToImage, imageType projectileType)
+        static Projectile *Create(wxWindow *callingWindow, std::string pathToImage, imageType projectileType)
         {
-            Projectile projectile();
+            Projectile *projectile = new Projectile;
             if (projectileType == PROJECTILE_TYPE_ANIMATION)
             {
+                wxAnimation *theAnimation = new wxAnimation(pathToImage); //Creates a new animation
+                wxAnimationCtrl *theAnimationCtrl = new wxAnimationCtrl(callingWindow, wxWindow::NewControlId(), *theAnimation); //creates a new animation control
+                projectile->m_animation = theAnimation; //sets the projectile animation
+                projectile->m_animationctrl = theAnimationCtrl; //set the projectile animation control
+                projectile->currentType = projectileType; //sets the current type to the projectile type passed from the caller
+                return projectile;
             }
+            if (projectileType == PROJECTILE_TYPE_IMAGE)
+            {
+                wxImage *theImage = new wxImage(pathToImage); //Creates a new image
+                wxStaticBitmap *theBitmapCtrl = new wxStaticBitmap(callingWindow, wxWindow::NewControlId(), wxBitmap(*theImage)); //creates a new bitmap control (with ID 0)
+                projectile->m_image = theImage; //sets projectile image
+                projectile->m_staticbitmap = theBitmapCtrl; //sets projectile control
+                projectile->currentType = projectileType; //sets the current type to the projectile type passed from the caller
+                return projectile;
+            }
+            return projectile;
         }
 
         /**
@@ -91,8 +110,14 @@ class Projectile
         ///Removes some power from each other
         static void powerDamage(Projectile* theFirst, Projectile* theOther);
 
-        Projectile operator=(const Projectile& p)
+        void operator=(const Projectile& p)
         {
+            this->m_animation = p.m_animation;
+            this->m_image = p.m_image;
+            this->m_animationctrl = p.m_animationctrl;
+            this->m_staticbitmap = p.m_staticbitmap;
+            this->currentType = p.currentType;
+            this->power = p.power;
         }
 
         virtual ~Projectile();
