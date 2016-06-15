@@ -135,6 +135,8 @@ class Projectile
 
         imageType currentType;
         double power = 0.0;
+
+        friend class Entity;
 };
 
 #endif // PROJECTILE_H
