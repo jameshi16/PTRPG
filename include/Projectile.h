@@ -110,6 +110,14 @@ class Projectile
         ///Removes some power from each other
         static void powerDamage(Projectile* theFirst, Projectile* theOther);
 
+        /*Gets and sets for power*/
+        double getPower(){return power;}
+        void setPower(double p_power){power = p_power;}
+
+        /*Gets and sets for speed*/
+        double getSpeed(){return speed;}
+        void setSpeed(double p_speed){speed = p_speed;}
+
         void operator=(const Projectile& p)
         {
             this->m_animation = p.m_animation;
@@ -135,6 +143,8 @@ class Projectile
 
         imageType currentType;
         double power = 0.0;
+        double speed = 0.0;
+        double lifeTime = 0.0; //okay I don't know how I'm going to implement this, but most likely, this is going to be in ProjAI, not in this Projectile Class.
 
         friend class Entity;
 };

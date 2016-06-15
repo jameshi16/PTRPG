@@ -5,6 +5,10 @@
 
 #include "string"
 
+#include "Item.h"
+#include "Skill.h"
+#include "vector"
+
 enum imageTypeEntity
 {
     ENTITY_TYPE_ANIMATION,
@@ -101,6 +105,20 @@ class Entity
         ///Removes some health from projectiles
         static void healthDamage(Entity* theEntity, Projectile* theProjectile);
 
+        ///@arg Inventory - the inventory.
+        void setInventory(std::vector<Item*> Inventory){m_Inventory = Inventory;}
+        ///Gets the inventory
+        std::vector<Item*> getInventory(){return m_Inventory;}
+
+        ///@arg Skills - the skills.
+        void setSkills(std::vector<Skill*> Skill){m_skills = Skill;};
+        ///Gets the skills
+        std::vector<Skill*> getSkills(){return m_skills;}
+
+        /*Get and sets for Health*/
+        double getHealth(){return health;}
+        void setHealth(double p_health){health = p_health;}
+
         void operator=(const Entity& p)
         {
             this->m_animation = p.m_animation;
@@ -127,7 +145,10 @@ class Entity
         imageTypeEntity currentType;
         double health = 0.0;
 
-    friend class Projectile;
+        std::vector<Item*> m_Inventory = {};
+        std::vector<Skill*> m_skills = {};
+
+        friend class Projectile;
 };
 
 #endif // ENTITY_H
