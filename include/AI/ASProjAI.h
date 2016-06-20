@@ -1,11 +1,11 @@
-#ifndef ASENTITYAI_H
-#define ASENTITYAI_H
+#ifndef ASPROJAI_H
+#define ASPROJAI_H
 
-#include "EntityAI.h"
+#include "ProjAI.h"
 #include "angelscript.h"
 #include "string"
 
-class ASEntityAI : EntityAI
+class ASProjAI : ProjAI
 {
     public:
         /*Methods*/
@@ -25,30 +25,30 @@ class ASEntityAI : EntityAI
             }
         }
 
-        //The factory function for ASEntityAI, angelscript
-        static ASEntityAI *Factory()
+        //The factory function for ASProjAI, angelscript
+        static ASProjAI *Factory()
         {
             asIScriptContext *ctx = asGetActiveContext();
             //Gets function calling this function
             asIScriptFunction *func = ctx->GetFunction(0); //and here I thought each context could only contain one function
-            if (func->GetObjectType() == 0 || std::string(func->GetObjectType()->GetName()) != "ASEntityAI") //if there is no object type (impossible), or the name of the calling function's object is not ASEntityAI
+            if (func->GetObjectType() == 0 || std::string(func->GetObjectType()->GetName()) != "ASProjAI") //if there is no object type (impossible), or the name of the calling function's object is not ASProjAI
             {
-                ctx->SetException("Failed to initialize ASEntityAI.");
+                ctx->SetException("Failed to initialize ASProjAI.");
                 return 0; //returns a null pointer
             }
 
             //Get the "this" pointer from the calling function to link C++'s class to AngelScript's script class
             asIScriptObject *obj = reinterpret_cast<asIScriptObject*>(ctx->GetThisPointer(0)); //reinterpret cast the asIScriptObject, as the pointer was converted internally in AngelScript's engine
 
-            return new ASEntityAI(obj); //creates the c++ object
+            return new ASProjAI(obj); //creates the c++ object
         }
 
-        //This is for the AIController to use, as each object of ASEntityAI controls an individual entity
-        ASEntityAI *GenerateCopy()
+        //This is for the AIController to use, as each object of ASProjAI controls an individual entity
+        ASProjAI *GenerateCopy()
         {
             //Create another instance of the derived script class from the c++ class
             asIScriptObject *obj = reinterpret_cast<asIScriptObject*>(m_obj->GetEngine()->CreateScriptObject(m_obj->GetObjectType())); //seems familiar?
-            ASEntityAI *obj2 = *reinterpret_cast<ASEntityAI**>(obj->GetAddressOfProperty(0)); //Property 0 has to be the "this" pinter, no?
+            ASProjAI *obj2 = *reinterpret_cast<ASProjAI**>(obj->GetAddressOfProperty(0)); //Property 0 has to be the "this" pinter, no?
 
             //Increase the reference of obj2 (so now it's 2. I've no idea how this actually works)
             obj2->AddRef();
@@ -82,7 +82,7 @@ class ASEntityAI : EntityAI
 
 
     protected:
-        ASEntityAI(asIScriptObject *obj) : m_obj(0), m_isDead(0), m_refCount(1) //creates an ASEntityAI object with the defaults
+        ASProjAI(asIScriptObject *obj) : m_obj(0), m_isDead(0), m_refCount(1) //creates an ASProjAI object with the defaults
         {
             //a weak reference flag to the angelscript object
             m_isDead = obj->GetWeakRefFlag();
@@ -91,7 +91,7 @@ class ASEntityAI : EntityAI
             m_obj = obj;
         }
 
-        ~ASEntityAI()
+        ~ASProjAI()
         {
             //Releases the flag
             m_isDead->Release();
@@ -104,7 +104,6 @@ class ASEntityAI : EntityAI
         int m_refCount; //the reference count
 
     private:
-
 };
 
-#endif // ASENTITYAI_H
+#endif // ASPROJAI_H
