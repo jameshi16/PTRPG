@@ -7,6 +7,7 @@
 #include "Event.h"
 #include "Item.h"
 #include "Skill.h"
+#include "EntityAI.h"
 
 #include "Player.h"
 
