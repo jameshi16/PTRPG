@@ -75,14 +75,14 @@ class AIController
     protected:
 
     private:
-        static std::vector<EntityAI*> v_entityAI = {}; //the entity AIs available (there should only be one of each kind of AI)
-        static std::vector<ProjAI*> v_projAI = {}; //the projectile AIs available (there should only be one of each kind of AI)
+        static std::vector<EntityAI*> v_entityAI; //the entity AIs available (there should only be one of each kind of AI)
+        static std::vector<ProjAI*> v_projAI; //the projectile AIs available (there should only be one of each kind of AI)
 
-        static std::vector<Entity> v_entity = {}; //the entities available
-        static std::vector<Projectile> v_projectile = {}; //the projectiles available
+        static std::vector<Entity> v_entity; //the entities available
+        static std::vector<Projectile> v_projectile; //the projectiles available
 
-        static std::map<Entity*, EntityAI*> m_defaultEntityAIs = {}; //the default AI for each entity (if the function doesn't find anything here, then the most basic AI is used)
-        static std::map<Projectile*, ProjAI*> m_defaultProjAIs = {}; //the default AI for each projectile
+        static std::map<Entity*, EntityAI*> m_defaultEntityAIs; //the default AI for each entity (if the function doesn't find anything here, then the most basic AI is used)
+        static std::map<Projectile*, ProjAI*> m_defaultProjAIs; //the default AI for each projectile
 
         std::vector<EntityAI*> deployedEntityAI = {}; //the deployed entity AIs
         std::vector<ProjAI*> deployedProjAI = {}; //the deployed projectile AIs

@@ -4,6 +4,13 @@
 
 Log::Log(std::string fileName)
 {
+    /*Here's to issue #2, my eternal friend*/
+    boost::filesystem::path p_path(boost::filesystem::current_path().string() + "\\log\\"); //Gets the current path + log folder
+    if (!boost::filesystem::exists(p_path)) //If the path does not exist
+    {
+        boost::filesystem::create_directory(p_path); //This should work. If it doesn't, we don't log at all
+    }
+
     f_file->open(fileName, std::ios::out | std::ios::ate); //opens the file
 }
 
